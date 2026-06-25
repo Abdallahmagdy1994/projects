@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة متابعة المشاريع</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #F7F6F3;
+    --surface: #FFFFFF;
+    --surface2: #F0EEE9;
+    --border: #E2DFD8;
+    --text-primary: #1A1916;
+    --text-secondary: #6B6860;
+    --text-muted: #9E9C97;
+    --accent: #2B5F8E;
+    --accent-light: #EAF1F8;
+    --amber: #B87B1F;
+    --amber-light: #FDF3E0;
+    --green: #2E6B3E;
+    --green-light: #EAF4ED;
+    --coral: #A63D26;
+    --coral-light: #FAEDE9;
+    --purple: #5B3F8A;
+    --purple-light: #F0EBFA;
+    --red-light: #FEF0EF;
+    --red: #C0392B;
+    --shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  .logo span { color: var(--text-muted); font-weight: 400; font-size: 13px; margin-right: 8px; }
+  .header-date { font-size: 12px; color: var(--text-muted); }
+
+  /* Layout */
+  .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.5rem; }
+
+  /* Summary bar */
+  .summary-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+  }
+  .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-value { font-size: 26px; font-weight: 700; color: var(--text-primary); line-height: 1.1; }
+  .stat-sub { font-size: 11px; color: var(--text-secondary); margin-top: 3px; }
+
+  /* Tabs */
+  .tabs-wrap { margin-bottom: 1.25rem; overflow-x: auto; padding-bottom: 4px; }
+  .tabs { display: flex; gap: 6px; white-space: nowrap; }
+  .tab {
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all .15s;
+  }
+  .tab:hover { background: var(--surface2); color: var(--text-primary); }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* Project card */
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.1rem;
+    box-shadow: var(--shadow);
+  }
+  .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.1rem; gap: 10px; flex-wrap: wrap; }
+  .card-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+  .card-company { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: right;
+    padding: 8px 12px;
+    background: var(--surface2);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--text-primary); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .total-row td { font-weight: 700; background: var(--surface2); font-size: 14px; }
+  tr:hover:not(.total-row) td { background: var(--bg); }
+
+  /* Info grid */
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: .85rem; }
+  .info-block {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: .7rem .9rem;
+    border: 1px solid var(--border);
+  }
+  .info-key { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .info-val { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+
+  /* Status tags */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .tag-ok { background: var(--green-light); color: var(--green); }
+  .tag-warn { background: var(--amber-light); color: var(--amber); }
+  .tag-na { background: var(--surface2); color: var(--text-muted); }
+  .tag::before { content: '●'; font-size: 8px; }
+
+  /* Section separator */
+  .section-sep { height: 1px; background: var(--border); margin: 1rem 0; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+
+  /* Overview big table */
+  .overview-table th { font-size: 12px; }
+  .overview-table td { font-size: 13px; }
+  .project-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 700; color: #fff; }
+
+  /* Maqas summary table */
+  .maqas-header { font-size: 16px; font-weight: 700; margin-bottom: .75rem; color: var(--text-primary); }
+
+  /* Color swatch */
+  .color-swatch {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .swatch-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,.12);
+    display: inline-block;
+  }
+
+  /* Alert bar */
+  .alert-bar {
+    background: var(--amber-light);
+    border: 1px solid #E8C97A;
+    border-radius: 10px;
+    padding: .85rem 1.1rem;
+    margin-bottom: 1.5rem;
+    font-size: 13px;
+    color: var(--amber);
+    font-weight: 500;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Print / edit note */
+  .edit-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 1.5rem 0 .5rem;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 0 1rem; }
+    .container { padding: 1rem; }
+    .card-title { font-size: 14px; }
+    .stat-value { font-size: 22px; }
+  }
+
+  @media print {
+    header { position: static; }
+    .tabs-wrap { display: none; }
+    .project-section { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">لوحة المشاريع <span>| إدارة الدرف والكميات</span></div>
+  <div class="header-date" id="hdate"></div>
+</header>
+
+<div class="container">
+
+  <!-- Alert -->
+  <div class="alert-bar">
+    <div class="alert-icon">⚠</div>
+    <div>
+      <strong>بنود تحتاج متابعة:</strong>
+      الماسكات غير محددة في 2 مشاريع (الهجرة سيتي، نزل خيالا) — حصر الحلق لم يتم في 4 مشاريع
+    </div>
+  </div>
+
+  <!-- Summary stats -->
+  <div class="summary-bar">
+    <div class="stat-card">
+      <div class="stat-label">إجمالي الدرف</div>
+      <div class="stat-value">6,153</div>
+      <div class="stat-sub">في 5 مشاريع</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">أكبر مشروع</div>
+      <div class="stat-value">2,088</div>
+      <div class="stat-sub">نزل خيالا</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">ماسكات معتمدة</div>
+      <div class="stat-value">2 / 5</div>
+      <div class="stat-sub">مشاريع</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">حلق محصورة</div>
+      <div class="stat-value">1 / 5</div>
+      <div class="stat-sub">الهجرة سيتي فقط</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">شركات المقاولات</div>
+      <div class="stat-value">4</div>
+      <div class="stat-sub">شركات</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-wrap">
+    <div class="tabs">
+      <button class="tab active" onclick="show('all')">جميع المشاريع</button>
+      <button class="tab" onclick="show('p1')">١ — الهجرة سيتي</button>
+      <button class="tab" onclick="show('p2')">٢ — ملفي الأصالة</button>
+      <button class="tab" onclick="show('p3')">٣ — دارة سدايم (أزال)</button>
+      <button class="tab" onclick="show('p4')">٤ — نزل خيالا</button>
+      <button class="tab" onclick="show('p5')">٥ — دارة سدايم (نام)</button>
+    </div>
+  </div>
+
+  <!-- ALL VIEW -->
+  <div class="project-section" id="all">
+    <div class="project-card">
+      <div class="card-header">
+        <div><div class="card-title">ملخص جميع المشاريع</div><div class="card-company">نظرة عامة على الكميات والمؤشرات</div></div>
+      </div>
+      <div class="table-wrap">
+        <table class="overview-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>المشروع</th>
+              <th>الشركة</th>
+              <th>إجمالي الدرف</th>
+              <th>كود اللون</th>
+              <th>الماسكة</th>
+              <th>نوع الحلق</th>
+              <th>حصر الحلق</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="project-num" style="background:var(--accent)">١</span></td>
+              <td><strong>الهجرة سيتي</strong></td>
+              <td>تشييد البنى الفوقية</td>
+              <td><strong>918</strong></td>
+              <td><span class="color-swatch"><span class="swatch-dot" style="background:#A8A89F"></span>249</span></td>
+              <td><span class="tag tag-warn">لم تحدد</span></td>
+              <td>كيرف عادية — برواز 10 سم</td>
+              <td><span class="tag tag-ok">محصورة ✓</span></td>
+            </tr>
+            <tr>
+              <td><span class="project-num" style="background:var(--amber)">٢</span></td>
+              <td><strong>ملفي الأصالة</strong></td>
+              <td>أثيل للمقاولات</td>
+              <td><strong>747</strong></td>
+              <td><span class="color-swatch"><span class="swatch-dot" style="background:#C8C0A0"></span>XTHT</span></td>
+              <td><span class="tag tag-ok">2020 أسود</span></td>
+              <td>كيرف عادية — برواز 10 سم</td>
+              <td><span class="tag tag-warn">لم تحصر</span></td>
+            </tr>
+            <tr>
+              <td><span class="project-num" style="background:var(--green)">٣</span></td>
+              <td><strong>دارة سدايم — أزال</strong></td>
+              <td>أزال للمقاولات</td>
+              <td><strong>1,500</strong></td>
+              <td><span class="color-swatch"><span class="swatch-dot" style="background:#B5B0A8"></span>212</span></td>
+              <td><span class="tag tag-ok">2056 أو ما يعادلها</span></td>
+              <td>مربعة — 8 سم</td>
+              <td><span class="tag tag-warn">لم تحصر</span></td>
+            </tr>
+            <tr>
+              <td><span class="project-num" style="background:var(--coral)">٤</span></td>
+              <td><strong>نزل خيالا</strong></td>
+              <td>أثيل للمقاولات</td>
+              <td><strong>2,088</strong></td>
+              <td><span class="color-swatch"><span class="swatch-dot" style="background:#D4C9B8"></span>103 سيجما</span></td>
+              <td><span class="tag tag-warn">لم تعتمد</span></td>
+              <td>كيرف عادية — 10 سم</td>
+              <td><span class="tag tag-warn">لم تحصر</span></td>
+            </tr>
+            <tr>
+              <td><span class="project-num" style="background:var(--purple)">٥</span></td>
+              <td><strong>دارة سدايم — نام</strong></td>
+              <td>نام للمقاولات</td>
+              <td><strong>900</strong></td>
+              <td><span class="color-swatch"><span class="swatch-dot" style="background:#B5B0A8"></span>212</span></td>
+              <td><span class="tag tag-ok">2056 أو ما يعادلها</span></td>
+              <td>مربعة — 8 سم</td>
+              <td><span class="tag tag-warn">لم تحصر</span></td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="3">الإجمالي الكلي</td>
+              <td>6153</td>
+              <td colspan="4">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="maqas-header">توزيع الدرف حسب المقاس — جميع المشاريع</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>المقاس</th>
+              <th>الهجرة سيتي</th>
+              <th>ملفي الأصالة</th>
+              <th>دارة سدايم أزال</th>
+              <th>نزل خيالا</th>
+              <th>دارة سدايم نام</th>
+              <th>الإجمالي</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>22062</strong></td><td>—</td><td>—</td><td>—</td><td>136</td><td>—</td><td><strong>136</strong></td></tr>
+            <tr><td><strong>22072</strong></td><td>316</td><td>415</td><td>880</td><td>843</td><td>530</td><td><strong>2,984</strong></td></tr>
+            <tr><td><strong>22082</strong></td><td>—</td><td>332</td><td>—</td><td>1,109</td><td>—</td><td><strong>1,441</strong></td></tr>
+            <tr><td><strong>22092</strong></td><td>452</td><td>—</td><td>620</td><td>—</td><td>370</td><td><strong>1,442</strong></td></tr>
+            <tr><td><strong>225104</strong></td><td>150</td><td>—</td><td>—</td><td>—</td><td>—</td><td><strong>150</strong></td></tr>
+            <tr class="total-row"><td>الإجمالي</td><td>918</td><td>747</td><td>1,500</td><td>2,088</td><td>900</td><td>6,153</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 1 -->
+  <div class="project-section" id="p1" style="display:none">
+    <div class="project-card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">مشروع الهجرة سيتي</div>
+          <div class="card-company">شركة تشييد البنى الفوقية</div>
+        </div>
+        <span class="badge" style="background:var(--accent-light);color:var(--accent)">918 درفة</span>
+      </div>
+
+      <div class="section-label">الدرف والمقاسات</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
+          <tbody>
+            <tr><td>225104</td><td>150</td></tr>
+            <tr><td>22092</td><td>452</td></tr>
+            <tr><td>22072</td><td>316</td></tr>
+            <tr class="total-row"><td>الإجمالي</td><td>918</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-sep"></div>
+      <div class="info-grid">
+        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">249</div></div>
+        <div class="info-block"><div class="info-key">الماسكات</div><div class="info-val"><span class="tag tag-warn">سيتم تغييرها — لم تحدد</span></div></div>
+        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">كيرف عادية — برواز 10 سم</div></div>
+        <div class="info-block"><div class="info-key">البراويز</div><div class="info-val">—</div></div>
+      </div>
+
+      <div class="section-sep"></div>
+      <div class="section-label">تفاصيل الحلق (محصورة)</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>نوع القائم</th><th>العدد</th></tr></thead>
+          <tbody>
+            <tr><td>قائم 20</td><td>1,865</td></tr>
+            <tr><td>قائم 24</td><td>35</td></tr>
+            <tr><td>قائم 14</td><td>650</td></tr>
+            <tr><td>قائم 10</td><td>15</td></tr>
+            <tr class="total-row"><td>الإجمالي</td><td>2,565</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 2 -->
+  <div class="project-section" id="p2" style="display:none">
+    <div class="project-card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">مشروع ملفي الأصالة — الرياض</div>
+          <div class="card-company">شركة أثيل للمقاولات</div>
+        </div>
+        <span class="badge" style="background:var(--amber-light);color:var(--amber)">747 درفة</span>
+      </div>
+
+      <div class="section-label">أرقام البوك المطلوبة</div>
+      <div class="info-block" style="margin-bottom:1rem"><div class="info-val" style="font-size:15px">127 &nbsp;—&nbsp; 120 &nbsp;—&nbsp; 119</div></div>
+
+      <div class="section-label">الدرف والمقاسات</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
+          <tbody>
+            <tr><td>22082</td><td>332</td></tr>
+            <tr><td>22072</td><td>415</td></tr>
+            <tr class="total-row"><td>الإجمالي</td><td>747</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-sep"></div>
+      <div class="info-grid">
+        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">XTHT</div></div>
+        <div class="info-block"><div class="info-key">الماسكة</div><div class="info-val"><span class="tag tag-ok">كود 2020 أسود</span></div></div>
+        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">كيرف عادية — برواز 10 سم</div></div>
+        <div class="info-block"><div class="info-key">حصر الحلق</div><div class="info-val"><span class="tag tag-warn">لم يتم بعد</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 3 -->
+  <div class="project-section" id="p3" style="display:none">
+    <div class="project-card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">مشروع دارة سدايم — المرحلة الثانية</div>
+          <div class="card-company">شركة أزال للمقاولات</div>
+        </div>
+        <span class="badge" style="background:var(--green-light);color:var(--green)">1,500 درفة</span>
+      </div>
+
+      <div class="section-label">الدرف والمقاسات</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
+          <tbody>
+            <tr><td>22072</td><td>880</td></tr>
+            <tr><td>22092</td><td>620</td></tr>
+            <tr class="total-row"><td>الإجمالي</td><td>1,500</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-sep"></div>
+      <div class="info-grid">
+        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">212</div></div>
+        <div class="info-block"><div class="info-key">الماسكة</div><div class="info-val"><span class="tag tag-ok">2056 أو ما يعادلها</span></div></div>
+        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">مربعة</div></div>
+        <div class="info-block"><div class="info-key">البراويز</div><div class="info-val">8 سم</div></div>
+        <div class="info-block"><div class="info-key">حصر الحلق</div><div class="info-val"><span class="tag tag-warn">لم يتم حتى الآن</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 4 -->
+  <div class="project-section" id="p4" style="display:none">
+    <div class="project-card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">مشروع نزل خيالا</div>
+          <div class="card-company">شركة أثيل للمقاولات</div>
+        </div>
+        <span class="badge" style="background:var(--coral-light);color:var(--coral)">2,088 درفة</span>
+      </div>
+
+      <div class="section-label">الدرف والمقاسات</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
+          <tbody>
+            <tr><td>22082</td><td>1,109</td></tr>
+            <tr><td>22072</td><td>843</td></tr>
+            <tr><td>22062</td><td>136</td></tr>
+            <tr class="total-row"><td>الإجمالي</td><td>2,088</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-sep"></div>
+      <div class="info-grid">
+        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">103 سيجما</div></div>
+        <div class="info-block"><div class="info-key">الماسكة</div><div class="info-val"><span class="tag tag-warn">لم تعتمد بعد</span></div></div>
+        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">كيرف عادية — برواز 10 سم</div></div>
+        <div class="info-block"><div class="info-key">البراويز</div><div class="info-val">10 سم</div></div>
+        <div class="info-block"><div class="info-key">حصر الحلق</div><div class="info-val"><span class="tag tag-warn">لم يتم بعد</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 5 -->
+  <div class="project-section" id="p5" style="display:none">
+    <div class="project-card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">مشروع دارة سدايم — نام</div>
+          <div class="card-company">شركة نام للمقاولات</div>
+        </div>
+        <span class="badge" style="background:var(--purple-light);color:var(--purple)">900 درفة</span>
+      </div>
+
+      <div class="section-label">الدرف والمقاسات</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
+          <tbody>
+            <tr><td>22072</td><td>530</td></tr>
+            <tr><td>22092</td><td>370</td></tr>
+            <tr class="total-row"><td>الإجمالي</td><td>900</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-sep"></div>
+      <div class="info-grid">
+        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">212</div></div>
+        <div class="info-block"><div class="info-key">الماسكة</div><div class="info-val"><span class="tag tag-ok">2056 أو ما يعادلها</span></div></div>
+        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">مربعة</div></div>
+        <div class="info-block"><div class="info-key">البراويز</div><div class="info-val">8 سم</div></div>
+        <div class="info-block"><div class="info-key">حصر الحلق</div><div class="info-val"><span class="tag tag-warn">لم يتم حتى الآن</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="edit-note">آخر تحديث: <span id="lastUpdate"></span> &nbsp;|&nbsp; Abdallah Magdy</div>
+
+</div>
+
+<script>
+  const now = new Date();
+  const opts = { year:'numeric', month:'long', day:'numeric', calendar:'gregory' };
+  document.getElementById('hdate').textContent = now.toLocaleDateString('ar-SA', opts);
+  document.getElementById('lastUpdate').textContent = now.toLocaleDateString('ar-SA', opts);
+
+  function show(id) {
+    document.querySelectorAll('.project-section').forEach(s => s.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.toggle('active', t.getAttribute('onclick').includes("'" + id + "'"));
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
