@@ -3,612 +3,1245 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>لوحة متابعة المشاريع</title>
+<title>لوحة متابعة المشاريع | Abdallah Magdy</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cairo@5.0.0/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
-
-  :root {
-    --bg: #F7F6F3;
-    --surface: #FFFFFF;
-    --surface2: #F0EEE9;
-    --border: #E2DFD8;
-    --text-primary: #1A1916;
-    --text-secondary: #6B6860;
-    --text-muted: #9E9C97;
-    --accent: #2B5F8E;
-    --accent-light: #EAF1F8;
-    --amber: #B87B1F;
-    --amber-light: #FDF3E0;
-    --green: #2E6B3E;
-    --green-light: #EAF4ED;
-    --coral: #A63D26;
-    --coral-light: #FAEDE9;
-    --purple: #5B3F8A;
-    --purple-light: #F0EBFA;
-    --red-light: #FEF0EF;
-    --red: #C0392B;
-    --shadow: 0 1px 4px rgba(0,0,0,0.06);
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Cairo', sans-serif;
-    background: var(--bg);
-    color: var(--text-primary);
-    font-size: 14px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-
-  /* Header */
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: -0.3px;
-  }
-  .logo span { color: var(--text-muted); font-weight: 400; font-size: 13px; margin-right: 8px; }
-  .header-date { font-size: 12px; color: var(--text-muted); }
-
-  /* Layout */
-  .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.5rem; }
-
-  /* Summary bar */
-  .summary-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px;
-    margin-bottom: 1.5rem;
-  }
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem 1.1rem;
-    box-shadow: var(--shadow);
-  }
-  .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .stat-value { font-size: 26px; font-weight: 700; color: var(--text-primary); line-height: 1.1; }
-  .stat-sub { font-size: 11px; color: var(--text-secondary); margin-top: 3px; }
-
-  /* Tabs */
-  .tabs-wrap { margin-bottom: 1.25rem; overflow-x: auto; padding-bottom: 4px; }
-  .tabs { display: flex; gap: 6px; white-space: nowrap; }
-  .tab {
-    padding: 7px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    font-family: 'Cairo', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    color: var(--text-secondary);
-    transition: all .15s;
-  }
-  .tab:hover { background: var(--surface2); color: var(--text-primary); }
-  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-  /* Project card */
-  .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.4rem 1.5rem;
-    margin-bottom: 1.1rem;
-    box-shadow: var(--shadow);
-  }
-  .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.1rem; gap: 10px; flex-wrap: wrap; }
-  .card-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
-  .card-company { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
-  .badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  /* Table */
-  .table-wrap { overflow-x: auto; margin-bottom: 1rem; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th {
-    text-align: right;
-    padding: 8px 12px;
-    background: var(--surface2);
-    color: var(--text-secondary);
-    font-weight: 600;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-  }
-  td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--text-primary); vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  .total-row td { font-weight: 700; background: var(--surface2); font-size: 14px; }
-  tr:hover:not(.total-row) td { background: var(--bg); }
-
-  /* Info grid */
-  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: .85rem; }
-  .info-block {
-    background: var(--surface2);
-    border-radius: 8px;
-    padding: .7rem .9rem;
-    border: 1px solid var(--border);
-  }
-  .info-key { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
-  .info-val { font-size: 13px; font-weight: 600; color: var(--text-primary); }
-
-  /* Status tags */
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 9px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-  }
-  .tag-ok { background: var(--green-light); color: var(--green); }
-  .tag-warn { background: var(--amber-light); color: var(--amber); }
-  .tag-na { background: var(--surface2); color: var(--text-muted); }
-  .tag::before { content: '●'; font-size: 8px; }
-
-  /* Section separator */
-  .section-sep { height: 1px; background: var(--border); margin: 1rem 0; }
-  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
-
-  /* Overview big table */
-  .overview-table th { font-size: 12px; }
-  .overview-table td { font-size: 13px; }
-  .project-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 700; color: #fff; }
-
-  /* Maqas summary table */
-  .maqas-header { font-size: 16px; font-weight: 700; margin-bottom: .75rem; color: var(--text-primary); }
-
-  /* Color swatch */
-  .color-swatch {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 600;
-    font-size: 12px;
-  }
-  .swatch-dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1px solid rgba(0,0,0,.12);
-    display: inline-block;
-  }
-
-  /* Alert bar */
-  .alert-bar {
-    background: var(--amber-light);
-    border: 1px solid #E8C97A;
-    border-radius: 10px;
-    padding: .85rem 1.1rem;
-    margin-bottom: 1.5rem;
-    font-size: 13px;
-    color: var(--amber);
-    font-weight: 500;
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-  }
-  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-
-  /* Print / edit note */
-  .edit-note {
-    text-align: center;
-    font-size: 12px;
-    color: var(--text-muted);
-    padding: 1.5rem 0 .5rem;
-  }
-
-  @media (max-width: 600px) {
-    header { padding: 0 1rem; }
-    .container { padding: 1rem; }
-    .card-title { font-size: 14px; }
-    .stat-value { font-size: 22px; }
-  }
-
-  @media print {
-    header { position: static; }
-    .tabs-wrap { display: none; }
-    .project-section { display: block !important; }
-  }
+  * { font-family: 'Cairo', sans-serif; }
+  body { background: #0a0e1a; color: #e2e8f0; min-height: 100vh; }
+  .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+  .gradient-border { position: relative; background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(168,85,247,0.05)); }
+  .gradient-border::before { content:''; position:absolute; inset:0; padding:1px; border-radius:inherit; background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(168,85,247,0.3)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; }
+  .mind-map-container { background: radial-gradient(ellipse at center, rgba(99,102,241,0.06) 0%, rgba(15,23,42,0.8) 70%); position: relative; overflow: hidden; }
+  .mind-map-container::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 50% 50%, rgba(99,102,241,0.03) 0%, transparent 50%); pointer-events:none; }
+  .mind-node { transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275); cursor: pointer; }
+  .mind-node:hover { transform: scale(1.06); filter: brightness(1.2); }
+  .mind-node:hover .node-glow { opacity: 0.5; }
+  .node-glow { transition: opacity 0.4s ease; opacity: 0.15; }
+  .status-paused { background: linear-gradient(135deg,#f59e0b,#d97706); }
+  .status-active { background: linear-gradient(135deg,#10b981,#059669); }
+  .status-pending { background: linear-gradient(135deg,#64748b,#475569); }
+  .status-measuring { background: linear-gradient(135deg,#8b5cf6,#7c3aed); }
+  .status-near-complete { background: linear-gradient(135deg,#06b6d4,#0891b2); }
+  .status-assembly { background: linear-gradient(135deg,#f97316,#ea580c); }
+  .glow-amber { box-shadow: 0 0 20px rgba(245,158,11,0.3); }
+  .glow-green { box-shadow: 0 0 20px rgba(16,185,129,0.3); }
+  .glow-gray { box-shadow: 0 0 20px rgba(100,116,139,0.3); }
+  .glow-purple { box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+  .glow-cyan { box-shadow: 0 0 20px rgba(6,182,212,0.3); }
+  .glow-orange { box-shadow: 0 0 20px rgba(249,115,22,0.3); }
+  .scrollbar::-webkit-scrollbar { width:6px; height:6px; }
+  .scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+  .scrollbar::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius:3px; }
+  table { border-collapse: separate; border-spacing: 0; }
+  th { background: rgba(99,102,241,0.1); }
+  tr:hover td { background: rgba(99,102,241,0.05); }
+  .tab-btn.active { background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2)); border-color: rgba(99,102,241,0.5); }
+  .fade-in { animation: fadeIn 0.5s ease-in; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+  @keyframes centerPulse { 0%,100%{r:50;opacity:0.95;} 50%{r:53;opacity:1;} }
+  .center-pulse { animation: centerPulse 3s ease-in-out infinite; }
+  @keyframes ringExpand { 0%{r:58;opacity:0.5;} 100%{r:75;opacity:0;} }
+  .ring-expand { animation: ringExpand 3s ease-out infinite; }
+  @keyframes ringExpand2 { 0%{r:58;opacity:0.3;} 100%{r:90;opacity:0;} }
+  .ring-expand2 { animation: ringExpand2 3s ease-out infinite 0.7s; }
+  @keyframes ringExpand3 { 0%{r:58;opacity:0.2;} 100%{r:105;opacity:0;} }
+  .ring-expand3 { animation: ringExpand3 3s ease-out infinite 1.4s; }
+  @keyframes centerPulseMain { 0%,100%{r:72;opacity:0.95;} 50%{r:76;opacity:1;} }
+  .center-pulse-main { animation: centerPulseMain 3s ease-in-out infinite; }
+  @keyframes ringExpandMain { 0%{r:82;opacity:0.5;} 100%{r:115;opacity:0;} }
+  .ring-expand-main { animation: ringExpandMain 3s ease-out infinite; }
+  @keyframes ringExpand2Main { 0%{r:82;opacity:0.3;} 100%{r:130;opacity:0;} }
+  .ring-expand2-main { animation: ringExpand2Main 3s ease-out infinite 0.7s; }
+  @keyframes ringExpand3Main { 0%{r:82;opacity:0.2;} 100%{r:145;opacity:0;} }
+  .ring-expand3-main { animation: ringExpand3Main 3s ease-out infinite 1.4s; }
+  .tab-btn { transition: all 0.3s ease; }
+  .mind-map-container { border: 1px solid rgba(99,102,241,0.15); }
+  .bar-animate { animation: barGrow 1.2s cubic-bezier(0.34,1.56,0.64,1); transform-origin: right; }
+  @keyframes barGrow { from{transform:scaleX(0);} to{transform:scaleX(1);} }
+  .pie-segment { transition: all 0.5s ease; }
+  .pie-segment:hover { filter: brightness(1.3); transform: scale(1.05); transform-origin: center; }
+  .summary-card { transition: all 0.3s ease; }
+  .summary-card:hover { transform: translateY(-4px); }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">لوحة المشاريع <span>| إدارة الدرف والكميات</span></div>
-  <div class="header-date" id="hdate"></div>
+<header class="glass sticky top-0 z-50 border-b border-indigo-500/20">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between flex-wrap gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-2xl">️</div>
+      <div>
+        <h1 class="text-xl font-bold text-white">لوحة متابعة المشاريع</h1>
+        <p class="text-xs text-slate-400">إدارة العمليات · Abdallah Magdy</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 text-xs">
+      <span class="px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30"><i class="fas fa-exclamation-triangle ml-1"></i> تنبيهات عاجلة: 3</span>
+      <span class="px-3 py-1.5 rounded-full bg-slate-700/50 text-slate-300 border border-slate-600"><i class="far fa-clock ml-1"></i> آخر تحديث: اليوم</span>
+    </div>
+  </div>
 </header>
 
-<div class="container">
-
-  <!-- Alert -->
-  <div class="alert-bar">
-    <div class="alert-icon">⚠</div>
-    <div>
-      <strong>بنود تحتاج متابعة:</strong>
-      الماسكات غير محددة في 2 مشاريع (الهجرة سيتي، نزل خيالا) — حصر الحلق لم يتم في 4 مشاريع
-    </div>
-  </div>
-
-  <!-- Summary stats -->
-  <div class="summary-bar">
-    <div class="stat-card">
-      <div class="stat-label">إجمالي الدرف</div>
-      <div class="stat-value">6,153</div>
-      <div class="stat-sub">في 5 مشاريع</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">أكبر مشروع</div>
-      <div class="stat-value">2,088</div>
-      <div class="stat-sub">نزل خيالا</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">ماسكات معتمدة</div>
-      <div class="stat-value">2 / 5</div>
-      <div class="stat-sub">مشاريع</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">حلق محصورة</div>
-      <div class="stat-value">1 / 5</div>
-      <div class="stat-sub">الهجرة سيتي فقط</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">شركات المقاولات</div>
-      <div class="stat-value">4</div>
-      <div class="stat-sub">شركات</div>
-    </div>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs-wrap">
-    <div class="tabs">
-      <button class="tab active" onclick="show('all')">جميع المشاريع</button>
-      <button class="tab" onclick="show('p1')">١ — الهجرة سيتي</button>
-      <button class="tab" onclick="show('p2')">٢ — ملفي الأصالة</button>
-      <button class="tab" onclick="show('p3')">٣ — دارة سدايم (أزال)</button>
-      <button class="tab" onclick="show('p4')">٤ — نزل خيالا</button>
-      <button class="tab" onclick="show('p5')">٥ — دارة سدايم (نام)</button>
-    </div>
-  </div>
-
-  <!-- ALL VIEW -->
-  <div class="project-section" id="all">
-    <div class="project-card">
-      <div class="card-header">
-        <div><div class="card-title">ملخص جميع المشاريع</div><div class="card-company">نظرة عامة على الكميات والمؤشرات</div></div>
-      </div>
-      <div class="table-wrap">
-        <table class="overview-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>المشروع</th>
-              <th>الشركة</th>
-              <th>إجمالي الدرف</th>
-              <th>كود اللون</th>
-              <th>الماسكة</th>
-              <th>نوع الحلق</th>
-              <th>حصر الحلق</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="project-num" style="background:var(--accent)">١</span></td>
-              <td><strong>الهجرة سيتي</strong></td>
-              <td>تشييد البنى الفوقية</td>
-              <td><strong>918</strong></td>
-              <td><span class="color-swatch"><span class="swatch-dot" style="background:#A8A89F"></span>249</span></td>
-              <td><span class="tag tag-warn">لم تحدد</span></td>
-              <td>كيرف عادية — برواز 10 سم</td>
-              <td><span class="tag tag-ok">محصورة ✓</span></td>
-            </tr>
-            <tr>
-              <td><span class="project-num" style="background:var(--amber)">٢</span></td>
-              <td><strong>ملفي الأصالة</strong></td>
-              <td>أثيل للمقاولات</td>
-              <td><strong>747</strong></td>
-              <td><span class="color-swatch"><span class="swatch-dot" style="background:#C8C0A0"></span>XTHT</span></td>
-              <td><span class="tag tag-ok">2020 أسود</span></td>
-              <td>كيرف عادية — برواز 10 سم</td>
-              <td><span class="tag tag-warn">لم تحصر</span></td>
-            </tr>
-            <tr>
-              <td><span class="project-num" style="background:var(--green)">٣</span></td>
-              <td><strong>دارة سدايم — أزال</strong></td>
-              <td>أزال للمقاولات</td>
-              <td><strong>1,500</strong></td>
-              <td><span class="color-swatch"><span class="swatch-dot" style="background:#B5B0A8"></span>212</span></td>
-              <td><span class="tag tag-ok">2056 أو ما يعادلها</span></td>
-              <td>مربعة — 8 سم</td>
-              <td><span class="tag tag-warn">لم تحصر</span></td>
-            </tr>
-            <tr>
-              <td><span class="project-num" style="background:var(--coral)">٤</span></td>
-              <td><strong>نزل خيالا</strong></td>
-              <td>أثيل للمقاولات</td>
-              <td><strong>2,088</strong></td>
-              <td><span class="color-swatch"><span class="swatch-dot" style="background:#D4C9B8"></span>103 سيجما</span></td>
-              <td><span class="tag tag-warn">لم تعتمد</span></td>
-              <td>كيرف عادية — 10 سم</td>
-              <td><span class="tag tag-warn">لم تحصر</span></td>
-            </tr>
-            <tr>
-              <td><span class="project-num" style="background:var(--purple)">٥</span></td>
-              <td><strong>دارة سدايم — نام</strong></td>
-              <td>نام للمقاولات</td>
-              <td><strong>900</strong></td>
-              <td><span class="color-swatch"><span class="swatch-dot" style="background:#B5B0A8"></span>212</span></td>
-              <td><span class="tag tag-ok">2056 أو ما يعادلها</span></td>
-              <td>مربعة — 8 سم</td>
-              <td><span class="tag tag-warn">لم تحصر</span></td>
-            </tr>
-            <tr class="total-row">
-              <td colspan="3">الإجمالي الكلي</td>
-              <td>6153</td>
-              <td colspan="4">—</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <div class="maqas-header">توزيع الدرف حسب المقاس — جميع المشاريع</div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>المقاس</th>
-              <th>الهجرة سيتي</th>
-              <th>ملفي الأصالة</th>
-              <th>دارة سدايم أزال</th>
-              <th>نزل خيالا</th>
-              <th>دارة سدايم نام</th>
-              <th>الإجمالي</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>22062</strong></td><td>—</td><td>—</td><td>—</td><td>136</td><td>—</td><td><strong>136</strong></td></tr>
-            <tr><td><strong>22072</strong></td><td>316</td><td>415</td><td>880</td><td>843</td><td>530</td><td><strong>2,984</strong></td></tr>
-            <tr><td><strong>22082</strong></td><td>—</td><td>332</td><td>—</td><td>1,109</td><td>—</td><td><strong>1,441</strong></td></tr>
-            <tr><td><strong>22092</strong></td><td>452</td><td>—</td><td>620</td><td>—</td><td>370</td><td><strong>1,442</strong></td></tr>
-            <tr><td><strong>225104</strong></td><td>150</td><td>—</td><td>—</td><td>—</td><td>—</td><td><strong>150</strong></td></tr>
-            <tr class="total-row"><td>الإجمالي</td><td>918</td><td>747</td><td>1,500</td><td>2,088</td><td>900</td><td>6,153</td></tr>
-          </tbody>
-        </table>
+<div class="max-w-7xl mx-auto px-6 mt-6">
+  <div class="gradient-border rounded-2xl p-4 fade-in">
+    <div class="flex items-start gap-3">
+      <div class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 text-lg flex-shrink-0"><i class="fas fa-bell"></i></div>
+      <div class="flex-1 space-y-2 text-sm">
+        <div class="flex items-center gap-2 text-amber-300"><i class="fas fa-pause-circle"></i><span>الهجرة سيتي متوقفة بانتظار قرار مدير المشروع</span></div>
+        <div class="flex items-center gap-2 text-amber-300"><i class="fas fa-times-circle"></i><span>ماسكات غير معتمدة في مشروعين (الهجرة سيتي، نزل خيالا)</span></div>
+        <div class="flex items-center gap-2 text-amber-300"><i class="fas fa-ruler-combined"></i><span>رفع مقاسات بلوكات ملفي الأصالة (119، 120، 127) جارٍ هذا الأسبوع</span></div>
       </div>
     </div>
   </div>
-
-  <!-- PROJECT 1 -->
-  <div class="project-section" id="p1" style="display:none">
-    <div class="project-card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">مشروع الهجرة سيتي</div>
-          <div class="card-company">شركة تشييد البنى الفوقية</div>
-        </div>
-        <span class="badge" style="background:var(--accent-light);color:var(--accent)">918 درفة</span>
-      </div>
-
-      <div class="section-label">الدرف والمقاسات</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
-          <tbody>
-            <tr><td>225104</td><td>150</td></tr>
-            <tr><td>22092</td><td>452</td></tr>
-            <tr><td>22072</td><td>316</td></tr>
-            <tr class="total-row"><td>الإجمالي</td><td>918</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-sep"></div>
-      <div class="info-grid">
-        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">249</div></div>
-        <div class="info-block"><div class="info-key">الماسكات</div><div class="info-val"><span class="tag tag-warn">سيتم تغييرها — لم تحدد</span></div></div>
-        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">كيرف عادية — برواز 10 سم</div></div>
-        <div class="info-block"><div class="info-key">البراويز</div><div class="info-val">—</div></div>
-      </div>
-
-      <div class="section-sep"></div>
-      <div class="section-label">تفاصيل الحلق (محصورة)</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>نوع القائم</th><th>العدد</th></tr></thead>
-          <tbody>
-            <tr><td>قائم 20</td><td>1,865</td></tr>
-            <tr><td>قائم 24</td><td>35</td></tr>
-            <tr><td>قائم 14</td><td>650</td></tr>
-            <tr><td>قائم 10</td><td>15</td></tr>
-            <tr class="total-row"><td>الإجمالي</td><td>2,565</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROJECT 2 -->
-  <div class="project-section" id="p2" style="display:none">
-    <div class="project-card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">مشروع ملفي الأصالة — الرياض</div>
-          <div class="card-company">شركة أثيل للمقاولات</div>
-        </div>
-        <span class="badge" style="background:var(--amber-light);color:var(--amber)">747 درفة</span>
-      </div>
-
-      <div class="section-label">أرقام البوك المطلوبة</div>
-      <div class="info-block" style="margin-bottom:1rem"><div class="info-val" style="font-size:15px">127 &nbsp;—&nbsp; 120 &nbsp;—&nbsp; 119</div></div>
-
-      <div class="section-label">الدرف والمقاسات</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
-          <tbody>
-            <tr><td>22082</td><td>332</td></tr>
-            <tr><td>22072</td><td>415</td></tr>
-            <tr class="total-row"><td>الإجمالي</td><td>747</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-sep"></div>
-      <div class="info-grid">
-        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">XTHT</div></div>
-        <div class="info-block"><div class="info-key">الماسكة</div><div class="info-val"><span class="tag tag-ok">كود 2020 أسود</span></div></div>
-        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">كيرف عادية — برواز 10 سم</div></div>
-        <div class="info-block"><div class="info-key">حصر الحلق</div><div class="info-val"><span class="tag tag-warn">لم يتم بعد</span></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROJECT 3 -->
-  <div class="project-section" id="p3" style="display:none">
-    <div class="project-card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">مشروع دارة سدايم — المرحلة الثانية</div>
-          <div class="card-company">شركة أزال للمقاولات</div>
-        </div>
-        <span class="badge" style="background:var(--green-light);color:var(--green)">1,500 درفة</span>
-      </div>
-
-      <div class="section-label">الدرف والمقاسات</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
-          <tbody>
-            <tr><td>22072</td><td>880</td></tr>
-            <tr><td>22092</td><td>620</td></tr>
-            <tr class="total-row"><td>الإجمالي</td><td>1,500</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-sep"></div>
-      <div class="info-grid">
-        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">212</div></div>
-        <div class="info-block"><div class="info-key">الماسكة</div><div class="info-val"><span class="tag tag-ok">2056 أو ما يعادلها</span></div></div>
-        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">مربعة</div></div>
-        <div class="info-block"><div class="info-key">البراويز</div><div class="info-val">8 سم</div></div>
-        <div class="info-block"><div class="info-key">حصر الحلق</div><div class="info-val"><span class="tag tag-warn">لم يتم حتى الآن</span></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROJECT 4 -->
-  <div class="project-section" id="p4" style="display:none">
-    <div class="project-card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">مشروع نزل خيالا</div>
-          <div class="card-company">شركة أثيل للمقاولات</div>
-        </div>
-        <span class="badge" style="background:var(--coral-light);color:var(--coral)">2,088 درفة</span>
-      </div>
-
-      <div class="section-label">الدرف والمقاسات</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
-          <tbody>
-            <tr><td>22082</td><td>1,109</td></tr>
-            <tr><td>22072</td><td>843</td></tr>
-            <tr><td>22062</td><td>136</td></tr>
-            <tr class="total-row"><td>الإجمالي</td><td>2,088</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-sep"></div>
-      <div class="info-grid">
-        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">103 سيجما</div></div>
-        <div class="info-block"><div class="info-key">الماسكة</div><div class="info-val"><span class="tag tag-warn">لم تعتمد بعد</span></div></div>
-        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">كيرف عادية — برواز 10 سم</div></div>
-        <div class="info-block"><div class="info-key">البراويز</div><div class="info-val">10 سم</div></div>
-        <div class="info-block"><div class="info-key">حصر الحلق</div><div class="info-val"><span class="tag tag-warn">لم يتم بعد</span></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROJECT 5 -->
-  <div class="project-section" id="p5" style="display:none">
-    <div class="project-card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">مشروع دارة سدايم — نام</div>
-          <div class="card-company">شركة نام للمقاولات</div>
-        </div>
-        <span class="badge" style="background:var(--purple-light);color:var(--purple)">900 درفة</span>
-      </div>
-
-      <div class="section-label">الدرف والمقاسات</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>المقاس</th><th>العدد</th></tr></thead>
-          <tbody>
-            <tr><td>22072</td><td>530</td></tr>
-            <tr><td>22092</td><td>370</td></tr>
-            <tr class="total-row"><td>الإجمالي</td><td>900</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-sep"></div>
-      <div class="info-grid">
-        <div class="info-block"><div class="info-key">كود اللون</div><div class="info-val">212</div></div>
-        <div class="info-block"><div class="info-key">الماسكة</div><div class="info-val"><span class="tag tag-ok">2056 أو ما يعادلها</span></div></div>
-        <div class="info-block"><div class="info-key">نوع الحلق</div><div class="info-val">مربعة</div></div>
-        <div class="info-block"><div class="info-key">البراويز</div><div class="info-val">8 سم</div></div>
-        <div class="info-block"><div class="info-key">حصر الحلق</div><div class="info-val"><span class="tag tag-warn">لم يتم حتى الآن</span></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="edit-note">آخر تحديث: <span id="lastUpdate"></span> &nbsp;|&nbsp; Abdallah Magdy Elhkoly</div>
-
 </div>
 
-<script>
-  const now = new Date();
-  const opts = { year:'numeric', month:'long', day:'numeric', calendar:'gregory' };
-  document.getElementById('hdate').textContent = now.toLocaleDateString('ar-SA', opts);
-  document.getElementById('lastUpdate').textContent = now.toLocaleDateString('ar-SA', opts);
+<div class="max-w-7xl mx-auto px-6 mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+  <div class="glass rounded-2xl p-5 gradient-border">
+    <div class="flex items-center justify-between mb-2"><span class="text-xs text-slate-400">إجمالي المشاريع</span><div class="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center text-indigo-400"><i class="fas fa-building"></i></div></div>
+    <div class="text-3xl font-bold text-white">7</div>
+    <div class="text-xs text-slate-500 mt-1">6 شركات مقاولات</div>
+  </div>
+  <div class="glass rounded-2xl p-5 gradient-border">
+    <div class="flex items-center justify-between mb-2"><span class="text-xs text-slate-400">إجمالي الأبواب الكلي</span><div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400"><i class="fas fa-door-closed"></i></div></div>
+    <div class="text-3xl font-bold text-white">8,646</div>
+    <div class="text-xs text-slate-500 mt-1">درف + مصنّع</div>
+  </div>
+  <div class="glass rounded-2xl p-5 gradient-border">
+    <div class="flex items-center justify-between mb-2"><span class="text-xs text-slate-400">تم تصنيعه</span><div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400"><i class="fas fa-industry"></i></div></div>
+    <div class="text-3xl font-bold text-white">2,079</div>
+    <div class="text-xs text-slate-500 mt-1">24% من الإجمالي</div>
+  </div>
+  <div class="glass rounded-2xl p-5 gradient-border">
+    <div class="flex items-center justify-between mb-2"><span class="text-xs text-slate-400">تم توريده</span><div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400"><i class="fas fa-truck"></i></div></div>
+    <div class="text-3xl font-bold text-white">1,878</div>
+    <div class="text-xs text-slate-500 mt-1">21.7% من الإجمالي</div>
+  </div>
+</div>
 
-  function show(id) {
-    document.querySelectorAll('.project-section').forEach(s => s.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-    document.querySelectorAll('.tab').forEach(t => {
-      t.classList.toggle('active', t.getAttribute('onclick').includes("'" + id + "'"));
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+<!-- Mind Map - REDESIGNED -->
+<div class="max-w-7xl mx-auto px-6 mt-8">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-lg font-bold text-white flex items-center gap-2"><i class="fas fa-project-diagram text-indigo-400"></i> الخريطة الذهنية للمشاريع</h2>
+    <span class="text-xs text-slate-400">اضغط على أي مشروع لعرض التفاصيل</span>
+  </div>
+  <div class="glass rounded-2xl p-6 mind-map-container overflow-x-auto scrollbar">
+    <svg id="mindMap" viewBox="0 0 1400 720" class="w-full" style="min-width:1000px;height:auto;"></svg>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="max-w-7xl mx-auto px-6 mt-8">
+  <div class="flex gap-2 overflow-x-auto scrollbar pb-2">
+    <button onclick="showProject('azal1')" class="tab-btn active px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap border border-slate-700 transition" data-tab="azal1"><i class="fas fa-check-circle text-cyan-400 ml-1"></i> سدايم أزال (م1)</button>
+    <button onclick="showProject('anmar1')" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap border border-slate-700 transition" data-tab="anmar1"><i class="fas fa-check-circle text-orange-400 ml-1"></i> سدايم أنمار (م1)</button>
+    <button onclick="showProject('hijrah')" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap border border-slate-700 transition" data-tab="hijrah"><i class="fas fa-pause-circle text-amber-400 ml-1"></i> الهجرة سيتي</button>
+    <button onclick="showProject('milfy')" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap border border-slate-700 transition" data-tab="milfy"><i class="fas fa-check-circle text-emerald-400 ml-1"></i> ملفي الأصالة</button>
+    <button onclick="showProject('azal2')" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap border border-slate-700 transition" data-tab="azal2"><i class="far fa-circle text-slate-400 ml-1"></i> سدايم أزال (م2)</button>
+    <button onclick="showProject('khiyala')" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap border border-slate-700 transition" data-tab="khiyala"><i class="far fa-circle text-slate-400 ml-1"></i> نزل خيالا</button>
+    <button onclick="showProject('nam')" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap border border-slate-700 transition" data-tab="nam"><i class="fas fa-ruler-combined text-purple-400 ml-1"></i> سدايم نام</button>
+    <button onclick="showProject('summary')" class="tab-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap border border-slate-700 transition" data-tab="summary"><i class="fas fa-chart-pie text-indigo-400 ml-1"></i> ملخص المشاريع</button>
+  </div>
+</div>
+
+<!-- Project Panels -->
+<div class="max-w-7xl mx-auto px-6 mt-4">
+
+  <!-- Azal Phase 1 -->
+  <div id="project-azal1" class="project-panel fade-in">
+    <div class="glass rounded-2xl p-6 gradient-border">
+      <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="status-near-complete text-white text-xs font-bold px-3 py-1 rounded-full glow-cyan">🔧 مراحل نهائية</span>
+            <h3 class="text-2xl font-bold text-white">دارة سدايم — أزال (المرحلة الأولى)</h3>
+          </div>
+          <p class="text-sm text-slate-400">شركة أزال للمقاولات · بلوكات 20، 24، 25، 26</p>
+        </div>
+        <div class="text-left">
+          <div class="text-xs text-slate-400">الإجمالي الكلي</div>
+          <div class="text-3xl font-bold text-cyan-400">1,325</div>
+          <div class="text-xs text-slate-500">911 مصنّع + 414 بالتصنيع</div>
+        </div>
+      </div>
+      <div class="bg-slate-900/50 rounded-xl p-4 mb-6">
+        <svg id="mm-azal1" viewBox="0 0 800 220" class="w-full"></svg>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-cubes text-indigo-400"></i> تفاصيل البلوكات</h4>
+          <div class="space-y-2 text-sm">
+            <div class="p-3 bg-cyan-500/10 border border-cyan-500/30 rounded-lg"><div class="flex justify-between items-center mb-1"><span class="font-bold text-white">بلوك 20</span><span class="text-xs text-cyan-400">✓ مراحل نهائية</span></div><div class="text-xs text-slate-400">306 باب · مصنّع ومورّد · التركيب بالمراحل النهائية</div></div>
+            <div class="p-3 bg-cyan-500/10 border border-cyan-500/30 rounded-lg"><div class="flex justify-between items-center mb-1"><span class="font-bold text-white">بلوك 24</span><span class="text-xs text-cyan-400">مرحلة التركيب</span></div><div class="text-xs text-slate-400">462 باب · مصنّع ومورّد · جارٍ التركيب</div></div>
+            <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg"><div class="flex justify-between items-center mb-1"><span class="font-bold text-white">بلوك 25 + 26</span><span class="text-xs text-amber-400">بالتصنيع</span></div><div class="text-xs text-slate-400">557 باب · 143 درفة مصنّعة ومورّدة · الحلوق والبراويز كاملة · باقي الدرف بالتصنيع</div></div>
+          </div>
+        </div>
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-chart-bar text-indigo-400"></i> ملخص الكميات</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">إجمالي الأبواب</span><span class="text-white font-bold">1,325</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">تم تصنيعه</span><span class="text-cyan-400 font-bold">911</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">تم توريده</span><span class="text-cyan-400 font-bold">911</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">بالمتبقي بالتصنيع</span><span class="text-amber-400 font-bold">414</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">الحلوق والبراويز</span><span class="text-emerald-400 font-bold">557 كاملة ✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anmar Phase 1 -->
+  <div id="project-anmar1" class="project-panel hidden fade-in">
+    <div class="glass rounded-2xl p-6 gradient-border">
+      <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="status-assembly text-white text-xs font-bold px-3 py-1 rounded-full glow-orange">️ انتظار دفعة</span>
+            <h3 class="text-2xl font-bold text-white">دارة سدايم — أنمار (المرحلة الأولى)</h3>
+          </div>
+          <p class="text-sm text-slate-400">شركة أنمار للمقاولات · بلوكات 28، 29</p>
+        </div>
+        <div class="text-left">
+          <div class="text-xs text-slate-400">الإجمالي الكلي</div>
+          <div class="text-3xl font-bold text-orange-400">578</div>
+          <div class="text-xs text-slate-500">578 مصنّع · 264 مركّب</div>
+        </div>
+      </div>
+      <div class="bg-slate-900/50 rounded-xl p-4 mb-6">
+        <svg id="mm-anmar1" viewBox="0 0 800 220" class="w-full"></svg>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-cubes text-indigo-400"></i> تفاصيل البلوكات</h4>
+          <div class="space-y-2 text-sm">
+            <div class="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg"><div class="flex justify-between items-center mb-1"><span class="font-bold text-white">بلوك 29</span><span class="text-xs text-emerald-400">✓ مكتمل</span></div><div class="text-xs text-slate-400">264 باب · مصنّع ومورّد ومركّب بالكامل</div></div>
+            <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg"><div class="flex justify-between items-center mb-1"><span class="font-bold text-white">بلوك 28</span><span class="text-xs text-amber-400">⚠️ انتظار دفعة</span></div><div class="text-xs text-slate-400">314 باب · مصنّع ومورّد · لم يبدأ التركيب لعدم دفع دفعة التوريد</div></div>
+          </div>
+        </div>
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-chart-bar text-indigo-400"></i> ملخص الكميات</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">إجمالي الأبواب</span><span class="text-white font-bold">578</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">تم تصنيعه</span><span class="text-orange-400 font-bold">578</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">تم توريده</span><span class="text-orange-400 font-bold">578</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">تم تركيبه</span><span class="text-emerald-400 font-bold">264</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">بانتظار التركيب</span><span class="text-amber-400 font-bold">314 (بلوك 28)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+        <p class="text-sm text-amber-200"><i class="fas fa-exclamation-triangle ml-1"></i><strong>تنبيه:</strong> بلوك 28 (314 باب) مصنّع ومورّد للموقع لكن لم يبدأ التركيب بسبب عدم دفع دفعة التوريد من قبل الشركة.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hijrah City -->
+  <div id="project-hijrah" class="project-panel hidden fade-in">
+    <div class="glass rounded-2xl p-6 gradient-border">
+      <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="status-paused text-white text-xs font-bold px-3 py-1 rounded-full glow-amber">⏸ متوقف</span>
+            <h3 class="text-2xl font-bold text-white">الهجرة سيتي</h3>
+          </div>
+          <p class="text-sm text-slate-400">شركة تشييد البنى الفوقية · متوقف بانتظار قرار مدير المشروع</p>
+        </div>
+        <div class="text-left">
+          <div class="text-xs text-slate-400">الإجمالي الكلي</div>
+          <div class="text-3xl font-bold text-amber-400">1,026</div>
+          <div class="text-xs text-slate-500">918 درف + 108 مصنّع</div>
+        </div>
+      </div>
+      <div class="bg-slate-900/50 rounded-xl p-4 mb-6">
+        <svg id="mm-hijrah" viewBox="0 0 800 220" class="w-full"></svg>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-list-ol text-indigo-400"></i> الدرف المطلوبة حسب المقاس</h4>
+          <table class="w-full text-sm">
+            <thead><tr class="text-slate-400 text-xs"><th class="p-2 rounded-r-lg text-right">المقاس</th><th class="p-2 text-center">المطلوب</th><th class="p-2 text-center">المتبقي</th><th class="p-2 rounded-l-lg text-left">الحالة</th></tr></thead>
+            <tbody class="text-slate-300">
+              <tr><td class="p-2">225104</td><td class="p-2 text-center">150</td><td class="p-2 text-center">150</td><td class="p-2 text-left text-amber-400">—</td></tr>
+              <tr><td class="p-2">22092</td><td class="p-2 text-center">452</td><td class="p-2 text-center">452</td><td class="p-2 text-left text-amber-400">—</td></tr>
+              <tr><td class="p-2">22072</td><td class="p-2 text-center">316</td><td class="p-2 text-center">316</td><td class="p-2 text-left text-amber-400">—</td></tr>
+              <tr class="border-t border-slate-700 font-bold"><td class="p-2">الإجمالي</td><td class="p-2 text-center">918</td><td class="p-2 text-center">918</td><td class="p-2"></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-cog text-indigo-400"></i> المواصفات الفنية</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">كود اللون</span><span class="text-white font-bold">249</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">الماسكات</span><span class="text-amber-400">لم تحدد بعد</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">نوع الحلق</span><span class="text-white">كيرف عادية</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">إجمالي القوائم</span><span class="text-white font-bold">2,565</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+        <p class="text-sm text-amber-200"><i class="fas fa-info-circle ml-1"></i><strong>ملاحظة:</strong> الـ 108 باب المصنّعة هي أبواب شقق تم تصنيعها فقط · تم توريد وتركيب 4 أبواب فقط من هذه الكمية · الـ 104 باب المتبقية لا تزال بالمصنع · وهي خارج كميات الدرف الـ 918 المطلوبة.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Milfy -->
+  <div id="project-milfy" class="project-panel hidden fade-in">
+    <div class="glass rounded-2xl p-6 gradient-border">
+      <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="status-active text-white text-xs font-bold px-3 py-1 rounded-full glow-green">✅ جارٍ</span>
+            <h3 class="text-2xl font-bold text-white">ملفي الأصالة</h3>
+          </div>
+          <p class="text-sm text-slate-400">شركة أثيل للمقاولات · الرياض</p>
+        </div>
+        <div class="text-left">
+          <div class="text-xs text-slate-400">الإجمالي الكلي</div>
+          <div class="text-3xl font-bold text-emerald-400">1,229</div>
+          <div class="text-xs text-slate-500">747 درف + 482 مصنّع</div>
+        </div>
+      </div>
+      <div class="bg-slate-900/50 rounded-xl p-4 mb-6">
+        <svg id="mm-milfy" viewBox="0 0 800 220" class="w-full"></svg>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-cubes text-indigo-400"></i> تفاصيل البلوكات</h4>
+          <div class="space-y-2 text-sm">
+            <div class="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
+              <div class="flex justify-between items-center mb-1"><span class="font-bold text-white">بلوك 129</span><span class="text-xs text-emerald-400">✓ التصنيع والتوريد مكتمل</span></div>
+              <div class="text-xs text-slate-400">275 باب · مصنّع ومورّد بالكامل · <strong class="text-emerald-300">جارٍ التركيب — تم إنجاز أكثر من 50%</strong></div>
+            </div>
+            <div class="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+              <div class="flex justify-between items-center mb-1"><span class="font-bold text-white">بلوك 128</span><span class="text-xs text-blue-400">جزئي</span></div>
+              <div class="text-xs text-slate-400">207 باب · 114 موردة · 93 في المصنع</div>
+            </div>
+            <div class="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+              <div class="flex justify-between items-center mb-1"><span class="font-bold text-white">بلوك 119 + 120 + 127</span><span class="text-xs text-purple-400">📐 لم تُرفع مقاساتها بعد</span></div>
+              <div class="text-xs text-slate-400">747 باب · <strong class="text-purple-300">لم تُرفع مقاساتها حتى الآن — سيتم رفع مقاساتها هذا الأسبوع</strong></div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-cog text-indigo-400"></i> المواصفات الفنية</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">كود اللون</span><span class="text-white font-bold">XTHT</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">الماسكة</span><span class="text-white">كود 2020 أسود</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">نوع الحلق</span><span class="text-white">كيرف عادية</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">حصر الحلق</span><span class="text-amber-400">لم يتم بعد</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 p-4 bg-purple-500/10 border border-purple-500/30 rounded-xl">
+        <p class="text-sm text-purple-200"><i class="fas fa-ruler-combined ml-1"></i><strong>ملاحظة هامة:</strong> بلوكات 119 و 120 و 127 (إجمالي 747 باب) لم تُرفع مقاساتها بعد — وسيتم رفع مقاساتها هذا الأسبوع إن شاء الله.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Azal Phase 2 -->
+  <div id="project-azal2" class="project-panel hidden fade-in">
+    <div class="glass rounded-2xl p-6 gradient-border">
+      <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="status-pending text-white text-xs font-bold px-3 py-1 rounded-full glow-gray">○ لم يبدأ</span>
+            <h3 class="text-2xl font-bold text-white">دارة سدايم — أزال (المرحلة الثانية)</h3>
+          </div>
+          <p class="text-sm text-slate-400">شركة أزال للمقاولات · المرحلة الثانية</p>
+        </div>
+        <div class="text-left">
+          <div class="text-xs text-slate-400">الإجمالي الكلي</div>
+          <div class="text-3xl font-bold text-slate-400">1,500</div>
+          <div class="text-xs text-slate-500">1,500 درف + 0 مصنّع</div>
+        </div>
+      </div>
+      <div class="bg-slate-900/50 rounded-xl p-4 mb-6">
+        <svg id="mm-azal2" viewBox="0 0 800 220" class="w-full"></svg>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-list-ol text-indigo-400"></i> الدرف المطلوبة</h4>
+          <table class="w-full text-sm">
+            <thead><tr class="text-slate-400 text-xs"><th class="p-2 rounded-r-lg text-right">المقاس</th><th class="p-2 text-center">المطلوب</th><th class="p-2 rounded-l-lg text-left">المتبقي</th></tr></thead>
+            <tbody class="text-slate-300">
+              <tr><td class="p-2">22072</td><td class="p-2 text-center">880</td><td class="p-2 text-left">880</td></tr>
+              <tr><td class="p-2">22092</td><td class="p-2 text-center">620</td><td class="p-2 text-left">620</td></tr>
+              <tr class="border-t border-slate-700 font-bold"><td class="p-2">الإجمالي</td><td class="p-2 text-center">1,500</td><td class="p-2"></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-cog text-indigo-400"></i> المواصفات الفنية</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">كود اللون</span><span class="text-white font-bold">212</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">الماسكة</span><span class="text-white">2056 أو ما يعادلها</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">نوع الحلق</span><span class="text-white">مربعة</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">البراويز</span><span class="text-white">8 سم</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Khiyala -->
+  <div id="project-khiyala" class="project-panel hidden fade-in">
+    <div class="glass rounded-2xl p-6 gradient-border">
+      <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="status-pending text-white text-xs font-bold px-3 py-1 rounded-full glow-gray">○ لم يبدأ</span>
+            <h3 class="text-2xl font-bold text-white">نزل خيالا</h3>
+          </div>
+          <p class="text-sm text-slate-400">شركة أثيل للمقاولات</p>
+        </div>
+        <div class="text-left">
+          <div class="text-xs text-slate-400">الإجمالي الكلي</div>
+          <div class="text-3xl font-bold text-slate-400">2,088</div>
+          <div class="text-xs text-slate-500">2,088 درف + 0 مصنّع</div>
+        </div>
+      </div>
+      <div class="bg-slate-900/50 rounded-xl p-4 mb-6">
+        <svg id="mm-khiyala" viewBox="0 0 800 220" class="w-full"></svg>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-list-ol text-indigo-400"></i> الدرف المطلوبة</h4>
+          <table class="w-full text-sm">
+            <thead><tr class="text-slate-400 text-xs"><th class="p-2 rounded-r-lg text-right">المقاس</th><th class="p-2 text-center">المطلوب</th><th class="p-2 rounded-l-lg text-left">المتبقي</th></tr></thead>
+            <tbody class="text-slate-300">
+              <tr><td class="p-2">22082</td><td class="p-2 text-center">1,109</td><td class="p-2 text-left">1,109</td></tr>
+              <tr><td class="p-2">22072</td><td class="p-2 text-center">843</td><td class="p-2 text-left">843</td></tr>
+              <tr><td class="p-2">22062</td><td class="p-2 text-center">136</td><td class="p-2 text-left">136</td></tr>
+              <tr class="border-t border-slate-700 font-bold"><td class="p-2">الإجمالي</td><td class="p-2 text-center">2,088</td><td class="p-2"></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-cog text-indigo-400"></i> المواصفات الفنية</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">كود اللون</span><span class="text-white font-bold">103 سيجما</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">الماسكة</span><span class="text-amber-400">لم تعتمد بعد</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">نوع الحلق</span><span class="text-white">كيرف عادية</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">البراويز</span><span class="text-white">10 سم</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nam -->
+  <div id="project-nam" class="project-panel hidden fade-in">
+    <div class="glass rounded-2xl p-6 gradient-border">
+      <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="status-measuring text-white text-xs font-bold px-3 py-1 rounded-full glow-purple"> رفع مقاسات</span>
+            <h3 class="text-2xl font-bold text-white">دارة سدايم — نام</h3>
+          </div>
+          <p class="text-sm text-slate-400">شركة نام للمقاولات · جارٍ رفع المقاسات وتجهيز خطة التوريد</p>
+        </div>
+        <div class="text-left">
+          <div class="text-xs text-slate-400">الإجمالي الكلي</div>
+          <div class="text-3xl font-bold text-purple-400">900</div>
+          <div class="text-xs text-slate-500">900 درف + 0 مصنّع</div>
+        </div>
+      </div>
+      <div class="bg-slate-900/50 rounded-xl p-4 mb-6">
+        <svg id="mm-nam" viewBox="0 0 800 220" class="w-full"></svg>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-list-ol text-indigo-400"></i> الدرف المطلوبة</h4>
+          <table class="w-full text-sm">
+            <thead><tr class="text-slate-400 text-xs"><th class="p-2 rounded-r-lg text-right">المقاس</th><th class="p-2 text-center">المطلوب</th><th class="p-2 rounded-l-lg text-left">المتبقي</th></tr></thead>
+            <tbody class="text-slate-300">
+              <tr><td class="p-2">22072</td><td class="p-2 text-center">530</td><td class="p-2 text-left">530</td></tr>
+              <tr><td class="p-2">22092</td><td class="p-2 text-center">370</td><td class="p-2 text-left">370</td></tr>
+              <tr class="border-t border-slate-700 font-bold"><td class="p-2">الإجمالي</td><td class="p-2 text-center">900</td><td class="p-2"></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-slate-900/40 rounded-xl p-4">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2"><i class="fas fa-cog text-indigo-400"></i> المواصفات الفنية</h4>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">كود اللون</span><span class="text-white font-bold">212</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">الماسكة</span><span class="text-white">2056 أو ما يعادلها</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">نوع الحلق</span><span class="text-white">مربعة</span></div>
+            <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-slate-400">البراويز</span><span class="text-white">8 سم</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Page -->
+  <div id="project-summary" class="project-panel hidden fade-in">
+    <div class="glass rounded-2xl p-6 gradient-border">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-2xl">📊</div>
+        <div>
+          <h3 class="text-2xl font-bold text-white">ملخص شامل للمشاريع</h3>
+          <p class="text-sm text-slate-400">نظرة عامة على جميع المشاريع والمؤشرات الرئيسية</p>
+        </div>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="summary-card glass rounded-xl p-4 gradient-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-slate-400">إجمالي المشاريع</span>
+            <i class="fas fa-building text-indigo-400"></i>
+          </div>
+          <div class="text-3xl font-bold text-white">7</div>
+          <div class="text-xs text-emerald-400 mt-1"><i class="fas fa-arrow-up"></i> 6 شركات مقاولات</div>
+        </div>
+        <div class="summary-card glass rounded-xl p-4 gradient-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-slate-400">إجمالي الأبواب</span>
+            <i class="fas fa-door-closed text-emerald-400"></i>
+          </div>
+          <div class="text-3xl font-bold text-white">8,646</div>
+          <div class="text-xs text-slate-400 mt-1">درف + مصنّع</div>
+        </div>
+        <div class="summary-card glass rounded-xl p-4 gradient-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-slate-400">نسبة التصنيع</span>
+            <i class="fas fa-industry text-purple-400"></i>
+          </div>
+          <div class="text-3xl font-bold text-purple-400">24%</div>
+          <div class="text-xs text-slate-400 mt-1">2,079 من 8,646</div>
+        </div>
+        <div class="summary-card glass rounded-xl p-4 gradient-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-slate-400">نسبة التوريد</span>
+            <i class="fas fa-truck text-blue-400"></i>
+          </div>
+          <div class="text-3xl font-bold text-blue-400">21.7%</div>
+          <div class="text-xs text-slate-400 mt-1">1,878 من 8,646</div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <!-- Bar Chart: Progress per project -->
+        <div class="bg-slate-900/40 rounded-xl p-5">
+          <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2"><i class="fas fa-chart-bar text-indigo-400"></i> تقدم المشاريع (الإجمالي الكلي)</h4>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-slate-300">سدايم أزال م1</span><span class="text-cyan-400 font-bold">1,325</span></div>
+              <div class="h-3 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full bar-animate" style="width:15.3%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-slate-300">سدايم أنمار م1</span><span class="text-orange-400 font-bold">578</span></div>
+              <div class="h-3 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full bar-animate" style="width:6.7%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-slate-300">الهجرة سيتي</span><span class="text-amber-400 font-bold">1,026</span></div>
+              <div class="h-3 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-full bar-animate" style="width:11.9%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-slate-300">ملفي الأصالة</span><span class="text-emerald-400 font-bold">1,229</span></div>
+              <div class="h-3 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full bar-animate" style="width:14.2%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-slate-300">سدايم أزال م2</span><span class="text-slate-400 font-bold">1,500</span></div>
+              <div class="h-3 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-slate-500 to-slate-400 rounded-full bar-animate" style="width:17.3%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-slate-300">نزل خيالا</span><span class="text-slate-400 font-bold">2,088</span></div>
+              <div class="h-3 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-slate-600 to-slate-400 rounded-full bar-animate" style="width:24.1%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-slate-300">سدايم نام</span><span class="text-purple-400 font-bold">900</span></div>
+              <div class="h-3 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full bar-animate" style="width:10.4%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pie Chart: Status distribution -->
+        <div class="bg-slate-900/40 rounded-xl p-5">
+          <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2"><i class="fas fa-chart-pie text-indigo-400"></i> توزيع حالات المشاريع</h4>
+          <div class="flex items-center gap-6">
+            <svg viewBox="0 0 200 200" class="w-48 h-48 flex-shrink-0">
+              <defs>
+                <filter id="pieGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="2" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <!-- Active (1) - 14.3% -->
+              <path class="pie-segment" d="M 100 100 L 100 20 A 80 80 0 0 1 171.3 58.6 Z" fill="#10b981" opacity="0.9" filter="url(#pieGlow)"/>
+              <!-- Near Complete (1) - 14.3% -->
+              <path class="pie-segment" d="M 100 100 L 171.3 58.6 A 80 80 0 0 1 171.3 141.4 Z" fill="#06b6d4" opacity="0.9" filter="url(#pieGlow)"/>
+              <!-- Assembly (1) - 14.3% -->
+              <path class="pie-segment" d="M 100 100 L 171.3 141.4 A 80 80 0 0 1 100 180 Z" fill="#f97316" opacity="0.9" filter="url(#pieGlow)"/>
+              <!-- Paused (1) - 14.3% -->
+              <path class="pie-segment" d="M 100 100 L 100 180 A 80 80 0 0 1 28.7 141.4 Z" fill="#f59e0b" opacity="0.9" filter="url(#pieGlow)"/>
+              <!-- Measuring (1) - 14.3% -->
+              <path class="pie-segment" d="M 100 100 L 28.7 141.4 A 80 80 0 0 1 28.7 58.6 Z" fill="#8b5cf6" opacity="0.9" filter="url(#pieGlow)"/>
+              <!-- Pending (2) - 28.6% -->
+              <path class="pie-segment" d="M 100 100 L 28.7 58.6 A 80 80 0 0 1 100 20 Z" fill="#64748b" opacity="0.9" filter="url(#pieGlow)"/>
+              <circle cx="100" cy="100" r="40" fill="#0f172a"/>
+              <text x="100" y="95" text-anchor="middle" fill="white" font-size="14" font-weight="bold">7</text>
+              <text x="100" y="112" text-anchor="middle" fill="#94a3b8" font-size="9">مشاريع</text>
+            </svg>
+            <div class="space-y-2 text-xs flex-1">
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500"></span><span class="text-slate-300">✅ جارٍ (1)</span></div>
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-cyan-500"></span><span class="text-slate-300">🔧 مراحل نهائية (1)</span></div>
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-orange-500"></span><span class="text-slate-300">⚠️ انتظار دفعة (1)</span></div>
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-amber-500"></span><span class="text-slate-300"> متوقف (1)</span></div>
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-purple-500"></span><span class="text-slate-300">📐 رفع مقاسات (1)</span></div>
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-slate-500"></span><span class="text-slate-300">○ لم يبدأ (2)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary Table -->
+      <div class="bg-slate-900/40 rounded-xl p-5">
+        <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2"><i class="fas fa-table text-indigo-400"></i> ملخص جميع المشاريع — الإجماليات المحدّثة</h4>
+        <div class="overflow-x-auto scrollbar">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-slate-300 text-xs">
+                <th class="p-3 text-right rounded-tr-lg">#</th>
+                <th class="p-3 text-right">المشروع</th>
+                <th class="p-3 text-right">الشركة</th>
+                <th class="p-3 text-center">الدرف المطلوبة</th>
+                <th class="p-3 text-center">تم تصنيعه</th>
+                <th class="p-3 text-center bg-indigo-500/20">الإجمالي الكلي</th>
+                <th class="p-3 text-center">تم توريده</th>
+                <th class="p-3 text-center">تم تركيبه</th>
+                <th class="p-3 text-center rounded-tl-lg">الحالة</th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-300">
+              <tr>
+                <td class="p-3">١</td>
+                <td class="p-3 font-bold text-white">سدايم أزال (م1)</td>
+                <td class="p-3">أزال للمقاولات</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center">911</td>
+                <td class="p-3 text-center font-bold text-cyan-400 bg-cyan-500/10">1,325</td>
+                <td class="p-3 text-center">911</td>
+                <td class="p-3 text-center">~768</td>
+                <td class="p-3 text-center"><span class="status-near-complete text-white text-xs px-2 py-1 rounded-full">🔧 مراحل نهائية</span></td>
+              </tr>
+              <tr>
+                <td class="p-3">٢</td>
+                <td class="p-3 font-bold text-white">سدايم أنمار (م1)</td>
+                <td class="p-3">أنمار للمقاولات</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center">578</td>
+                <td class="p-3 text-center font-bold text-orange-400 bg-orange-500/10">578</td>
+                <td class="p-3 text-center">578</td>
+                <td class="p-3 text-center">264</td>
+                <td class="p-3 text-center"><span class="status-assembly text-white text-xs px-2 py-1 rounded-full">⚠️ انتظار دفعة</span></td>
+              </tr>
+              <tr>
+                <td class="p-3">٣</td>
+                <td class="p-3 font-bold text-white">الهجرة سيتي</td>
+                <td class="p-3">تشييد البنى الفوقية</td>
+                <td class="p-3 text-center">918</td>
+                <td class="p-3 text-center">108</td>
+                <td class="p-3 text-center font-bold text-amber-400 bg-amber-500/10">1,026</td>
+                <td class="p-3 text-center">4</td>
+                <td class="p-3 text-center">4</td>
+                <td class="p-3 text-center"><span class="status-paused text-white text-xs px-2 py-1 rounded-full">⏸ متوقف</span></td>
+              </tr>
+              <tr>
+                <td class="p-3">٤</td>
+                <td class="p-3 font-bold text-white">ملفي الأصالة</td>
+                <td class="p-3">أثيل للمقاولات</td>
+                <td class="p-3 text-center">747</td>
+                <td class="p-3 text-center">482</td>
+                <td class="p-3 text-center font-bold text-emerald-400 bg-emerald-500/10">1,229</td>
+                <td class="p-3 text-center">389</td>
+                <td class="p-3 text-center">جارٍ (بلوك 129 &gt;50%)</td>
+                <td class="p-3 text-center"><span class="status-active text-white text-xs px-2 py-1 rounded-full">✅ جارٍ</span></td>
+              </tr>
+              <tr>
+                <td class="p-3">٥</td>
+                <td class="p-3 font-bold text-white">سدايم أزال (م2)</td>
+                <td class="p-3">أزال للمقاولات</td>
+                <td class="p-3 text-center">1,500</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center font-bold text-slate-400 bg-slate-500/10">1,500</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center"><span class="status-pending text-white text-xs px-2 py-1 rounded-full">○ لم يبدأ</span></td>
+              </tr>
+              <tr>
+                <td class="p-3">٦</td>
+                <td class="p-3 font-bold text-white">نزل خيالا</td>
+                <td class="p-3">أثيل للمقاولات</td>
+                <td class="p-3 text-center">2,088</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center font-bold text-slate-400 bg-slate-500/10">2,088</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center"><span class="status-pending text-white text-xs px-2 py-1 rounded-full">○ لم يبدأ</span></td>
+              </tr>
+              <tr>
+                <td class="p-3">٧</td>
+                <td class="p-3 font-bold text-white">سدايم نام</td>
+                <td class="p-3">نام للمقاولات</td>
+                <td class="p-3 text-center">900</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center font-bold text-purple-400 bg-purple-500/10">900</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center">—</td>
+                <td class="p-3 text-center"><span class="status-measuring text-white text-xs px-2 py-1 rounded-full">📐 رفع مقاسات</span></td>
+              </tr>
+              <tr class="border-t-2 border-indigo-500/30 font-bold">
+                <td class="p-3"></td>
+                <td class="p-3 text-white">الإجمالي</td>
+                <td class="p-3">—</td>
+                <td class="p-3 text-center text-white">6,153</td>
+                <td class="p-3 text-center text-white">2,079</td>
+                <td class="p-3 text-center text-indigo-300 bg-indigo-500/20">8,646</td>
+                <td class="p-3 text-center text-white">1,882</td>
+                <td class="p-3 text-center text-white">~1,036</td>
+                <td class="p-3"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 p-3 bg-indigo-500/10 border border-indigo-500/30 rounded-lg text-xs text-indigo-200">
+          <i class="fas fa-info-circle ml-1"></i>
+          <strong>الإجمالي الكلي</strong> = الدرف المطلوبة + تم تصنيعه (لأن الكميات المصنّعة في بعض المشاريع خارج الدرف المطلوبة أو تمثل مراحل سابقة).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Weekly Update Notice -->
+<div class="max-w-7xl mx-auto px-6 mb-12">
+  <div class="glass rounded-2xl p-5 gradient-border">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xl flex-shrink-0">
+        <i class="fas fa-sync-alt text-white"></i>
+      </div>
+      <div class="flex-1">
+        <h3 class="text-sm font-bold text-white mb-1">تحديث أسبوعي</h3>
+        <p class="text-xs text-slate-400">سيتم تحديث هذه اللوحة أسبوعياً لمتابعة آخر المستجدات في جميع المشاريع · آخر تحديث: اليوم</p>
+      </div>
+      <div class="hidden md:block text-xs text-slate-500">
+        <i class="far fa-calendar-alt ml-1"></i>
+        تحديث دوري
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="glass border-t border-indigo-500/20 py-4">
+  <div class="max-w-7xl mx-auto px-6 text-center text-xs text-slate-400">
+    <p>لوحة متابعة المشاريع · إدارة العمليات · Abdallah Magdy Elhkoly</p>
+  </div>
+</footer>
+
+<script>
+  function showProject(id) {
+    document.querySelectorAll('.project-panel').forEach(p => p.classList.add('hidden'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('project-' + id).classList.remove('hidden');
+    document.querySelector(`[data-tab="${id}"]`).classList.add('active');
+    if (id === 'summary') drawSummaryAnimations();
   }
+
+  function drawSummaryAnimations() {
+    document.querySelectorAll('.bar-animate').forEach(bar => {
+      bar.style.animation = 'none';
+      void bar.offsetWidth;
+      bar.style.animation = '';
+    });
+  }
+
+  // ===== MAIN MIND MAP =====
+  function drawMainMindMap() {
+    const svg = document.getElementById('mindMap');
+    const projects = [
+      { id: 'azal1', name: 'سدايم أزال م1', total: 1325, color: '#06b6d4', icon: '🔧', x: 180, y: 100 },
+      { id: 'anmar1', name: 'سدايم أنمار م1', total: 578, color: '#f97316', icon: '⚠️', x: 180, y: 230 },
+      { id: 'hijrah', name: 'الهجرة سيتي', total: 1026, color: '#f59e0b', icon: '', x: 180, y: 360 },
+      { id: 'milfy', name: 'ملفي الأصالة', total: 1229, color: '#10b981', icon: '✅', x: 180, y: 490 },
+      { id: 'azal2', name: 'سدايم أزال م2', total: 1500, color: '#64748b', icon: '○', x: 180, y: 620 },
+      { id: 'khiyala', name: 'نزل خيالا', total: 2088, color: '#64748b', icon: '○', x: 1220, y: 100 },
+      { id: 'nam', name: 'سدايم نام', total: 900, color: '#8b5cf6', icon: '📐', x: 1220, y: 230 }
+    ];
+
+    const center = { x: 700, y: 365 };
+    const centerR = 72;
+    const nodeW = 200, nodeH = 75;
+    let html = '';
+
+    function getCircleEdge(cx, cy, r, tx, ty) {
+      const angle = Math.atan2(ty - cy, tx - cx);
+      return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+    }
+
+    function getRectEdge(cx, cy, w, h, tx, ty) {
+      const hw = w / 2;
+      const hh = h / 2;
+      const dx = tx - cx;
+      const dy = ty - cy;
+      if (dx === 0 && dy === 0) return { x: cx, y: cy };
+      const absDx = Math.abs(dx);
+      const absDy = Math.abs(dy);
+      let t;
+      if (absDx * hh > absDy * hw) {
+        t = hw / absDx;
+      } else {
+        t = hh / absDy;
+      }
+      return { x: cx + dx * t, y: cy + dy * t };
+    }
+
+    html += `<defs>
+      <radialGradient id="centerGlow">
+        <stop offset="0%" stop-color="#6366f1" stop-opacity="0.4"/>
+        <stop offset="50%" stop-color="#6366f1" stop-opacity="0.1"/>
+        <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="centerCore">
+        <stop offset="0%" stop-color="#818cf8"/>
+        <stop offset="100%" stop-color="#4f46e5"/>
+      </radialGradient>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="8" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="nodeShadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+      </filter>
+      <filter id="lineGlow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>`;
+
+    projects.forEach((p, i) => {
+      const startPt = getCircleEdge(center.x, center.y, centerR, p.x, p.y);
+      const endPt = getRectEdge(p.x, p.y, nodeW, nodeH, center.x, center.y);
+      html += `<linearGradient id="connGrad${i}" x1="${startPt.x}" y1="${startPt.y}" x2="${endPt.x}" y2="${endPt.y}" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#6366f1"/>
+        <stop offset="100%" stop-color="${p.color}"/>
+      </linearGradient>`;
+    });
+    html += `</defs>`;
+
+    html += `<circle cx="${center.x}" cy="${center.y}" r="280" fill="url(#centerGlow)"/>`;
+    
+    for (let i = 0; i < 1400; i += 80) {
+      html += `<line x1="${i}" y1="0" x2="${i}" y2="720" stroke="rgba(99,102,241,0.03)" stroke-width="0.5"/>`;
+    }
+    for (let j = 0; j < 720; j += 80) {
+      html += `<line x1="0" y1="${j}" x2="1400" y2="${j}" stroke="rgba(99,102,241,0.03)" stroke-width="0.5"/>`;
+    }
+
+    projects.forEach((p, i) => {
+      const startPt = getCircleEdge(center.x, center.y, centerR, p.x, p.y);
+      const endPt = getRectEdge(p.x, p.y, nodeW, nodeH, center.x, center.y);
+      
+      const isLeft = p.x < center.x;
+      const cpOffset = isLeft ? -120 : 120;
+      const cp1x = startPt.x + cpOffset;
+      const cp1y = startPt.y + (endPt.y - startPt.y) * 0.3;
+      const cp2x = endPt.x - cpOffset;
+      const cp2y = endPt.y - (endPt.y - startPt.y) * 0.3;
+      
+      const path = `M ${startPt.x} ${startPt.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${endPt.x} ${endPt.y}`;
+      
+      html += `<path d="${path}" stroke="url(#connGrad${i})" stroke-width="8" fill="none" opacity="0.08" filter="url(#softGlow)" stroke-linecap="round"/>`;
+      html += `<path d="${path}" stroke="url(#connGrad${i})" stroke-width="4" fill="none" opacity="0.2" stroke-linecap="round"/>`;
+      html += `<path d="${path}" stroke="url(#connGrad${i})" stroke-width="2" fill="none" opacity="0.8" stroke-linecap="round"/>`;
+      html += `<path d="${path}" stroke="white" stroke-width="0.5" fill="none" opacity="0.3" stroke-linecap="round"/>`;
+      
+      html += `<circle r="3" fill="${p.color}" opacity="0.9">
+        <animateMotion dur="${3 + i * 0.5}s" repeatCount="indefinite" path="${path}"/>
+      </circle>`;
+      html += `<circle r="6" fill="${p.color}" opacity="0.2">
+        <animateMotion dur="${3 + i * 0.5}s" repeatCount="indefinite" path="${path}"/>
+      </circle>`;
+      
+      html += `<circle cx="${startPt.x}" cy="${startPt.y}" r="4" fill="#6366f1" opacity="0.9" filter="url(#glow)"/>`;
+      html += `<circle cx="${endPt.x}" cy="${endPt.y}" r="4" fill="${p.color}" opacity="0.9" filter="url(#glow)"/>`;
+    });
+
+    html += `<g filter="url(#softGlow)">
+      <circle class="ring-expand3-main" cx="${center.x}" cy="${center.y}" r="82" fill="none" stroke="#6366f1" stroke-width="0.5" opacity="0.2"/>
+      <circle class="ring-expand2-main" cx="${center.x}" cy="${center.y}" r="82" fill="none" stroke="#6366f1" stroke-width="1" opacity="0.3"/>
+      <circle class="ring-expand-main" cx="${center.x}" cy="${center.y}" r="82" fill="none" stroke="#818cf8" stroke-width="1.5" opacity="0.5"/>
+    </g>`;
+    
+    html += `<g filter="url(#glow)">
+      <circle class="center-pulse-main" cx="${center.x}" cy="${center.y}" r="72" fill="url(#centerCore)" opacity="0.95"/>
+      <circle cx="${center.x}" cy="${center.y}" r="72" fill="none" stroke="#a5b4fc" stroke-width="2" opacity="0.5"/>
+      <circle cx="${center.x}" cy="${center.y}" r="68" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text x="${center.x}" y="${center.y-24}" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-weight="bold">إجمالي</text>
+      <text x="${center.x}" y="${center.y-8}" text-anchor="middle" fill="white" font-size="12" font-weight="bold">المشاريع</text>
+      <text x="${center.x}" y="${center.y+22}" text-anchor="middle" fill="#fde68a" font-size="22" font-weight="bold">8,646</text>
+      <text x="${center.x}" y="${center.y+42}" text-anchor="middle" fill="#a5b4fc" font-size="10">7 مشاريع</text>
+    </g>`;
+
+    projects.forEach(p => {
+      const rx = p.x - nodeW/2;
+      const ry = p.y - nodeH/2;
+      
+      html += `<g class="mind-node" onclick="showProject('${p.id}')" style="cursor:pointer" filter="url(#nodeShadow)">
+        <rect class="node-glow" x="${rx-6}" y="${ry-6}" width="${nodeW+12}" height="${nodeH+12}" rx="22" fill="${p.color}" opacity="0.1"/>
+        <rect x="${rx}" y="${ry}" width="${nodeW}" height="${nodeH}" rx="16" fill="rgba(15,23,42,0.9)" stroke="${p.color}" stroke-width="2"/>
+        <rect x="${rx+1}" y="${ry+1}" width="${nodeW-2}" height="${nodeH-2}" rx="15" fill="${p.color}" opacity="0.08"/>
+        <rect x="${rx+2}" y="${ry+2}" width="${nodeW-4}" height="20" rx="14" fill="rgba(255,255,255,0.03)"/>
+        <circle cx="${rx + 30}" cy="${p.y}" r="18" fill="${p.color}" opacity="0.2" stroke="${p.color}" stroke-width="1.5"/>
+        <text x="${rx + 30}" y="${p.y + 6}" text-anchor="middle" fill="white" font-size="14">${p.icon}</text>
+        <text x="${rx + nodeW/2 + 18}" y="${p.y - 10}" text-anchor="middle" fill="white" font-size="13" font-weight="bold">${p.name}</text>
+        <text x="${rx + nodeW/2 + 18}" y="${p.y + 14}" text-anchor="middle" fill="${p.color}" font-size="19" font-weight="bold">${p.total.toLocaleString('ar-EG')}</text>
+        <text x="${rx + nodeW/2 + 18}" y="${p.y + 30}" text-anchor="middle" fill="#64748b" font-size="9">إجمالي كلي</text>
+        <circle cx="${rx + nodeW - 16}" cy="${ry + 16}" r="5" fill="${p.color}" opacity="0.8">
+          <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </g>`;
+    });
+
+    const particles = [
+      {x: 350, y: 150, color: '#06b6d4', delay: 0},
+      {x: 1050, y: 180, color: '#8b5cf6', delay: 0.5},
+      {x: 400, y: 550, color: '#10b981', delay: 1},
+      {x: 1000, y: 500, color: '#f59e0b', delay: 1.5},
+      {x: 550, y: 200, color: '#6366f1', delay: 2},
+      {x: 850, y: 550, color: '#f97316', delay: 2.5},
+    ];
+    particles.forEach(pt => {
+      html += `<circle cx="${pt.x}" cy="${pt.y}" r="2" fill="${pt.color}" opacity="0.4">
+        <animate attributeName="cy" values="${pt.y};${pt.y-15};${pt.y}" dur="4s" begin="${pt.delay}s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="4s" begin="${pt.delay}s" repeatCount="indefinite"/>
+      </circle>`;
+    });
+
+    svg.innerHTML = html;
+  }
+
+  // ===== PROJECT MIND MAP (Unified Design) =====
+  function drawProjectMindMap(svgId, config) {
+    const svg = document.getElementById(svgId);
+    if (!svg) return;
+    
+    const {
+      projectName,
+      projectTotal,
+      mainColor,
+      stages
+    } = config;
+
+    // Layout
+    const centerX = 400, centerY = 110, centerR = 50;
+    // Left side: 3 stages (measurements, manufacturing, supply)
+    const leftStages = stages.slice(0, 3);
+    // Right side: 1 stage (installation)
+    const rightStage = stages[3];
+
+    const leftX = 180;
+    const leftYs = [52, 110, 168];
+    const leftW = 180, leftH = 42;
+    
+    const rightX = 620;
+    const rightY = 110;
+    const rightW = 180, rightH = 42;
+
+    let html = '';
+
+    function getCircleEdge(cx, cy, r, tx, ty) {
+      const angle = Math.atan2(ty - cy, tx - cx);
+      return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+    }
+
+    function getRectEdge(cx, cy, w, h, tx, ty) {
+      const hw = w / 2;
+      const hh = h / 2;
+      const dx = tx - cx;
+      const dy = ty - cy;
+      if (dx === 0 && dy === 0) return { x: cx, y: cy };
+      const absDx = Math.abs(dx);
+      const absDy = Math.abs(dy);
+      let t;
+      if (absDx * hh > absDy * hw) {
+        t = hw / absDx;
+      } else {
+        t = hh / absDy;
+      }
+      return { x: cx + dx * t, y: cy + dy * t };
+    }
+
+    html += `<defs>
+      <radialGradient id="pcg_${svgId}">
+        <stop offset="0%" stop-color="${mainColor}" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="${mainColor}" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="pcc_${svgId}">
+        <stop offset="0%" stop-color="${mainColor}"/>
+        <stop offset="100%" stop-color="${adjustColor(mainColor, -30)}"/>
+      </radialGradient>
+      <filter id="pglow_${svgId}" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="psoftGlow_${svgId}" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="6" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="pnodeShadow_${svgId}" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.4"/>
+      </filter>`;
+
+    // Connector gradients
+    leftStages.forEach((s, i) => {
+      const startPt = getCircleEdge(centerX, centerY, centerR, leftX, leftYs[i]);
+      const endPt = getRectEdge(leftX, leftYs[i], leftW, leftH, centerX, centerY);
+      html += `<linearGradient id="pconn_${svgId}_${i}" x1="${startPt.x}" y1="${startPt.y}" x2="${endPt.x}" y2="${endPt.y}" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="${mainColor}"/>
+        <stop offset="100%" stop-color="${s.color}"/>
+      </linearGradient>`;
+    });
+    const rStartPt = getCircleEdge(centerX, centerY, centerR, rightX, rightY);
+    const rEndPt = getRectEdge(rightX, rightY, rightW, rightH, centerX, centerY);
+    html += `<linearGradient id="pconn_${svgId}_3" x1="${rStartPt.x}" y1="${rStartPt.y}" x2="${rEndPt.x}" y2="${rEndPt.y}" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="${mainColor}"/>
+      <stop offset="100%" stop-color="${rightStage.color}"/>
+    </linearGradient>`;
+    html += `</defs>`;
+
+    // Background glow
+    html += `<circle cx="${centerX}" cy="${centerY}" r="140" fill="url(#pcg_${svgId})"/>`;
+
+    // Subtle grid
+    for (let i = 0; i < 800; i += 60) {
+      html += `<line x1="${i}" y1="0" x2="${i}" y2="220" stroke="rgba(99,102,241,0.02)" stroke-width="0.5"/>`;
+    }
+    for (let j = 0; j < 220; j += 60) {
+      html += `<line x1="0" y1="${j}" x2="800" y2="${j}" stroke="rgba(99,102,241,0.02)" stroke-width="0.5"/>`;
+    }
+
+    // Connectors - left stages
+    leftStages.forEach((s, i) => {
+      const startPt = getCircleEdge(centerX, centerY, centerR, leftX, leftYs[i]);
+      const endPt = getRectEdge(leftX, leftYs[i], leftW, leftH, centerX, centerY);
+      
+      const cp1x = startPt.x - 60;
+      const cp1y = startPt.y + (endPt.y - startPt.y) * 0.4;
+      const cp2x = endPt.x + 60;
+      const cp2y = endPt.y - (endPt.y - startPt.y) * 0.4;
+      
+      const path = `M ${startPt.x} ${startPt.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${endPt.x} ${endPt.y}`;
+      
+      html += `<path d="${path}" stroke="url(#pconn_${svgId}_${i})" stroke-width="6" fill="none" opacity="0.1" filter="url(#psoftGlow_${svgId})" stroke-linecap="round"/>`;
+      html += `<path d="${path}" stroke="url(#pconn_${svgId}_${i})" stroke-width="3" fill="none" opacity="0.25" stroke-linecap="round"/>`;
+      html += `<path d="${path}" stroke="url(#pconn_${svgId}_${i})" stroke-width="1.5" fill="none" opacity="0.85" stroke-linecap="round"/>`;
+      html += `<path d="${path}" stroke="white" stroke-width="0.4" fill="none" opacity="0.3" stroke-linecap="round"/>`;
+      
+      // Animated particle
+      const dur = 2.5 + i * 0.4;
+      html += `<circle r="2.5" fill="${s.color}" opacity="0.95">
+        <animateMotion dur="${dur}s" repeatCount="indefinite" path="${path}"/>
+      </circle>`;
+      html += `<circle r="5" fill="${s.color}" opacity="0.25">
+        <animateMotion dur="${dur}s" repeatCount="indefinite" path="${path}"/>
+      </circle>`;
+      
+      // Border connection dots
+      html += `<circle cx="${startPt.x}" cy="${startPt.y}" r="3" fill="${mainColor}" opacity="0.95" filter="url(#pglow_${svgId})"/>`;
+      html += `<circle cx="${endPt.x}" cy="${endPt.y}" r="3" fill="${s.color}" opacity="0.95" filter="url(#pglow_${svgId})"/>`;
+    });
+
+    // Connector - right stage
+    {
+      const startPt = rStartPt;
+      const endPt = rEndPt;
+      const cp1x = startPt.x + 60;
+      const cp1y = startPt.y + (endPt.y - startPt.y) * 0.4;
+      const cp2x = endPt.x - 60;
+      const cp2y = endPt.y - (endPt.y - startPt.y) * 0.4;
+      
+      const path = `M ${startPt.x} ${startPt.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${endPt.x} ${endPt.y}`;
+      
+      html += `<path d="${path}" stroke="url(#pconn_${svgId}_3)" stroke-width="6" fill="none" opacity="0.1" filter="url(#psoftGlow_${svgId})" stroke-linecap="round"/>`;
+      html += `<path d="${path}" stroke="url(#pconn_${svgId}_3)" stroke-width="3" fill="none" opacity="0.25" stroke-linecap="round"/>`;
+      html += `<path d="${path}" stroke="url(#pconn_${svgId}_3)" stroke-width="1.5" fill="none" opacity="0.85" stroke-linecap="round"/>`;
+      html += `<path d="${path}" stroke="white" stroke-width="0.4" fill="none" opacity="0.3" stroke-linecap="round"/>`;
+      
+      html += `<circle r="2.5" fill="${rightStage.color}" opacity="0.95">
+        <animateMotion dur="3s" repeatCount="indefinite" path="${path}"/>
+      </circle>`;
+      html += `<circle r="5" fill="${rightStage.color}" opacity="0.25">
+        <animateMotion dur="3s" repeatCount="indefinite" path="${path}"/>
+      </circle>`;
+      
+      html += `<circle cx="${startPt.x}" cy="${startPt.y}" r="3" fill="${mainColor}" opacity="0.95" filter="url(#pglow_${svgId})"/>`;
+      html += `<circle cx="${endPt.x}" cy="${endPt.y}" r="3" fill="${rightStage.color}" opacity="0.95" filter="url(#pglow_${svgId})"/>`;
+    }
+
+    // Center node
+    html += `<g filter="url(#psoftGlow_${svgId})">
+      <circle class="ring-expand3" cx="${centerX}" cy="${centerY}" r="58" fill="none" stroke="${mainColor}" stroke-width="0.5" opacity="0.2"/>
+      <circle class="ring-expand2" cx="${centerX}" cy="${centerY}" r="58" fill="none" stroke="${mainColor}" stroke-width="1" opacity="0.3"/>
+      <circle class="ring-expand" cx="${centerX}" cy="${centerY}" r="58" fill="none" stroke="${mainColor}" stroke-width="1.5" opacity="0.5"/>
+    </g>`;
+    
+    html += `<g filter="url(#pglow_${svgId})">
+      <circle class="center-pulse" cx="${centerX}" cy="${centerY}" r="50" fill="url(#pcc_${svgId})" opacity="0.95"/>
+      <circle cx="${centerX}" cy="${centerY}" r="50" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" opacity="0.6"/>
+      <circle cx="${centerX}" cy="${centerY}" r="46" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text x="${centerX}" y="${centerY-14}" text-anchor="middle" fill="white" font-size="12" font-weight="bold">${projectName.split(' ')[0]}</text>
+      <text x="${centerX}" y="${centerY+4}" text-anchor="middle" fill="white" font-size="12" font-weight="bold">${projectName.split(' ').slice(1).join(' ') || ''}</text>
+      <text x="${centerX}" y="${centerY+22}" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="13" font-weight="bold">${projectTotal.toLocaleString('ar-EG')}</text>
+    </g>`;
+
+    // Left stage nodes
+    leftStages.forEach((s, i) => {
+      const rx = leftX - leftW/2;
+      const ry = leftYs[i] - leftH/2;
+      const isActive = s.active;
+      
+      html += `<g filter="url(#pnodeShadow_${svgId})">
+        <rect x="${rx}" y="${ry}" width="${leftW}" height="${leftH}" rx="12" fill="rgba(15,23,42,0.9)" stroke="${s.color}" stroke-width="${isActive ? 2 : 1.5}" opacity="${isActive ? 1 : 0.7}"/>
+        <rect x="${rx+1}" y="${ry+1}" width="${leftW-2}" height="${leftH-2}" rx="11" fill="${s.color}" opacity="${isActive ? 0.15 : 0.08}"/>
+        <rect x="${rx+2}" y="${ry+2}" width="${leftW-4}" height="14" rx="10" fill="rgba(255,255,255,0.03)"/>
+        <text x="${rx + leftW/2}" y="${ry + 18}" text-anchor="middle" fill="${s.color}" font-size="10" font-weight="bold">${s.icon} ${s.label}</text>
+        <text x="${rx + leftW/2}" y="${ry + 34}" text-anchor="middle" fill="white" font-size="12" font-weight="bold">${s.value}</text>
+        ${isActive ? `<circle cx="${rx + leftW - 10}" cy="${ry + 10}" r="4" fill="${s.color}" opacity="0.9">
+          <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+        </circle>` : ''}
+      </g>`;
+    });
+
+    // Right stage node
+    {
+      const s = rightStage;
+      const rx = rightX - rightW/2;
+      const ry = rightY - rightH/2;
+      const isActive = s.active;
+      
+      html += `<g filter="url(#pnodeShadow_${svgId})">
+        <rect x="${rx}" y="${ry}" width="${rightW}" height="${rightH}" rx="12" fill="rgba(15,23,42,0.9)" stroke="${s.color}" stroke-width="${isActive ? 2 : 1.5}" opacity="${isActive ? 1 : 0.7}"/>
+        <rect x="${rx+1}" y="${ry+1}" width="${rightW-2}" height="${rightH-2}" rx="11" fill="${s.color}" opacity="${isActive ? 0.15 : 0.08}"/>
+        <rect x="${rx+2}" y="${ry+2}" width="${rightW-4}" height="14" rx="10" fill="rgba(255,255,255,0.03)"/>
+        <text x="${rx + rightW/2}" y="${ry + 18}" text-anchor="middle" fill="${s.color}" font-size="10" font-weight="bold">${s.icon} ${s.label}</text>
+        <text x="${rx + rightW/2}" y="${ry + 34}" text-anchor="middle" fill="white" font-size="12" font-weight="bold">${s.value}</text>
+        ${isActive ? `<circle cx="${rx + 10}" cy="${ry + 10}" r="4" fill="${s.color}" opacity="0.9">
+          <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+        </circle>` : ''}
+      </g>`;
+    }
+
+    svg.innerHTML = html;
+  }
+
+  // Helper to darken color
+  function adjustColor(hex, amount) {
+    const num = parseInt(hex.replace('#',''), 16);
+    const r = Math.max(0, Math.min(255, (num >> 16) + amount));
+    const g = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) + amount));
+    const b = Math.max(0, Math.min(255, (num & 0x0000FF) + amount));
+    return `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
+  }
+
+  // Initialize all project mind maps
+  function initProjectMindMaps() {
+    drawProjectMindMap('mm-azal1', {
+      projectName: 'سدايم أزال م1',
+      projectTotal: 1325,
+      mainColor: '#06b6d4',
+      stages: [
+        { label: 'رفع المقاسات', icon: '', value: '✓ تم · 1,029 باب', color: '#8b5cf6', active: true },
+        { label: 'التصنيع', icon: '🏭', value: '911 باب', color: '#10b981', active: true },
+        { label: 'التوريد', icon: '', value: '911 باب', color: '#3b82f6', active: true },
+        { label: 'التركيب', icon: '🔧', value: 'مراحل نهائية', color: '#f59e0b', active: true }
+      ]
+    });
+
+    drawProjectMindMap('mm-anmar1', {
+      projectName: 'سدايم أنمار م1',
+      projectTotal: 578,
+      mainColor: '#f97316',
+      stages: [
+        { label: 'رفع المقاسات', icon: '📐', value: '✓ تم', color: '#8b5cf6', active: true },
+        { label: 'التصنيع', icon: '🏭', value: '578 باب ✓', color: '#10b981', active: true },
+        { label: 'التوريد', icon: '', value: '578 باب ✓', color: '#3b82f6', active: true },
+        { label: 'التركيب', icon: '🔧', value: '264 باب فقط', color: '#ef4444', active: false }
+      ]
+    });
+
+    drawProjectMindMap('mm-hijrah', {
+      projectName: 'الهجرة سيتي',
+      projectTotal: 1026,
+      mainColor: '#f59e0b',
+      stages: [
+        { label: 'رفع المقاسات', icon: '📐', value: '✓ تم · 1,020 باب', color: '#8b5cf6', active: true },
+        { label: 'التصنيع', icon: '🏭', value: '108 باب', color: '#10b981', active: false },
+        { label: 'التوريد', icon: '🚚', value: '4 أبواب فقط', color: '#3b82f6', active: false },
+        { label: 'التركيب', icon: '🔧', value: '4 أبواب فقط', color: '#ef4444', active: false }
+      ]
+    });
+
+    drawProjectMindMap('mm-milfy', {
+      projectName: 'ملفي الأصالة',
+      projectTotal: 1229,
+      mainColor: '#10b981',
+      stages: [
+        { label: 'رفع المقاسات', icon: '📐', value: '✓ تم · 1,029 باب', color: '#8b5cf6', active: true },
+        { label: 'التصنيع', icon: '🏭', value: '482 باب', color: '#10b981', active: true },
+        { label: 'التوريد', icon: '🚚', value: '389 باب', color: '#3b82f6', active: true },
+        { label: 'التركيب', icon: '', value: 'بلوك 129 >50%', color: '#f59e0b', active: true }
+      ]
+    });
+
+    drawProjectMindMap('mm-azal2', {
+      projectName: 'سدايم أزال م2',
+      projectTotal: 1500,
+      mainColor: '#64748b',
+      stages: [
+        { label: 'رفع المقاسات', icon: '📐', value: 'لم يتم', color: '#8b5cf6', active: false },
+        { label: 'التصنيع', icon: '🏭', value: '—', color: '#10b981', active: false },
+        { label: 'التوريد', icon: '🚚', value: '—', color: '#3b82f6', active: false },
+        { label: 'التركيب', icon: '🔧', value: '—', color: '#f59e0b', active: false }
+      ]
+    });
+
+    drawProjectMindMap('mm-khiyala', {
+      projectName: 'نزل خيالا',
+      projectTotal: 2088,
+      mainColor: '#64748b',
+      stages: [
+        { label: 'رفع المقاسات', icon: '', value: 'لم يتم', color: '#8b5cf6', active: false },
+        { label: 'التصنيع', icon: '', value: '—', color: '#10b981', active: false },
+        { label: 'التوريد', icon: '', value: '—', color: '#3b82f6', active: false },
+        { label: 'التركيب', icon: '🔧', value: '—', color: '#f59e0b', active: false }
+      ]
+    });
+
+    drawProjectMindMap('mm-nam', {
+      projectName: 'سدايم نام',
+      projectTotal: 900,
+      mainColor: '#8b5cf6',
+      stages: [
+        { label: 'رفع المقاسات', icon: '📐', value: 'جارٍ حالياً', color: '#a78bfa', active: true },
+        { label: 'التصنيع', icon: '', value: '—', color: '#10b981', active: false },
+        { label: 'التوريد', icon: '', value: '—', color: '#3b82f6', active: false },
+        { label: 'التركيب', icon: '', value: '—', color: '#f59e0b', active: false }
+      ]
+    });
+  }
+
+  // Initialize
+  drawMainMindMap();
+  initProjectMindMaps();
 </script>
+
 </body>
 </html>
+
