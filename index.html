@@ -41,8 +41,6 @@ body::before{
   z-index:0;
 }
 .container{max-width:1500px;margin:0 auto;padding:20px;position:relative;z-index:1}
-
-/* Top Bar */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -86,8 +84,6 @@ body::before{
   font-size:13px;
   display:flex;align-items:center;gap:6px;
 }
-
-/* Nav Tabs */
 .nav-tabs{
   display:flex;
   gap:12px;
@@ -113,13 +109,9 @@ body::before{
   color:#fff;border-color:transparent;
   box-shadow:0 5px 20px rgba(6,214,214,0.3);
 }
-
-/* Pages */
 .page{display:none;animation:fadeIn 0.4s}
 .page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* Alert Box */
 .alert-box{
   background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.05));
   border:1px solid rgba(245,158,11,0.3);
@@ -131,8 +123,6 @@ body::before{
 .alert-box ul{list-style:none}
 .alert-box li{padding:6px 0;color:var(--text);display:flex;align-items:center;gap:10px}
 .alert-box li::before{content:'⚠️';font-size:14px}
-
-/* Stats Grid */
 .stats-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -166,8 +156,6 @@ body::before{
   margin-bottom:5px;
 }
 .stat-card .label{color:var(--muted);font-size:13px}
-
-/* Mind Map */
 .mind-map{
   background:linear-gradient(135deg,var(--card),var(--card2));
   border:1px solid var(--border);
@@ -221,8 +209,6 @@ body::before{
 .mind-map-item.status-stopped{background:linear-gradient(135deg,#dc2626,#ef4444);border-color:#ef4444;box-shadow:0 5px 20px rgba(239,68,68,0.3)}
 .mind-map-item.status-measuring{background:linear-gradient(135deg,#7c3aed,#8b5cf6);border-color:#8b5cf6;box-shadow:0 5px 20px rgba(139,92,246,0.3)}
 .mind-map-item.status-notstarted{background:linear-gradient(135deg,#4b5563,#6b7280);border-color:#6b7280;box-shadow:0 5px 20px rgba(107,114,128,0.3)}
-
-/* Project Card */
 .project-card{
   background:linear-gradient(135deg,var(--card),var(--card2));
   border:1px solid var(--border);
@@ -247,8 +233,6 @@ body::before{
   display:flex;align-items:center;gap:10px;
 }
 .project-card h3{color:var(--cyan);margin:25px 0 15px 0;font-size:18px}
-
-/* Status Badge */
 .status-badge{
   display:inline-flex;
   align-items:center;
@@ -265,8 +249,6 @@ body::before{
 .status-badge.status-stopped{background:rgba(239,68,68,0.2);color:#ef4444;border:1px solid #ef4444}
 .status-badge.status-measuring{background:rgba(139,92,246,0.2);color:#8b5cf6;border:1px solid #8b5cf6}
 .status-badge.status-notstarted{background:rgba(107,114,128,0.2);color:#9ca3af;border:1px solid #6b7280}
-
-/* Project Header */
 .project-header{
   display:flex;
   justify-content:space-between;
@@ -291,8 +273,6 @@ body::before{
 .project-status.status-stopped{background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff}
 .project-status.status-measuring{background:linear-gradient(135deg,#7c3aed,#8b5cf6);color:#fff}
 .project-status.status-notstarted{background:linear-gradient(135deg,#4b5563,#6b7280);color:#fff}
-
-/* Info Grid */
 .project-info{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -314,8 +294,6 @@ body::before{
 .info-item .value.green{color:#10b981}
 .info-item .value.orange{color:var(--orange)}
 .info-item .value.purple{color:var(--purple)}
-
-/* Block Card */
 .block-card{
   background:rgba(255,255,255,0.03);
   border:1px solid var(--border);
@@ -328,8 +306,6 @@ body::before{
 .block-card:hover{border-color:var(--cyan);background:rgba(6,214,214,0.05)}
 .block-card h4{color:var(--white);margin-bottom:8px;font-size:16px}
 .block-card p{color:var(--muted);line-height:1.6;font-size:14px}
-
-/* Table */
 .table-wrap{overflow-x:auto;margin:20px 0}
 table{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.02);border-radius:12px;overflow:hidden}
 thead{background:linear-gradient(135deg,rgba(6,214,214,0.2),rgba(139,92,246,0.2))}
@@ -338,8 +314,6 @@ td{padding:14px;text-align:center;border-bottom:1px solid var(--border);color:va
 tbody tr:hover{background:rgba(6,214,214,0.05)}
 .total-row{background:rgba(6,214,214,0.1) !important;font-weight:bold;color:var(--cyan)}
 .total-row td{border-bottom:none}
-
-/* Notes */
 .note{
   background:rgba(245,158,11,0.1);
   border:1px solid rgba(245,158,11,0.3);
@@ -370,8 +344,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
   font-size:13px;
   line-height:1.6;
 }
-
-/* Summary Table Card */
 .summary-table{
   background:linear-gradient(135deg,var(--card),var(--card2));
   border:1px solid var(--border);
@@ -381,11 +353,7 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
 }
 .summary-table h2{color:var(--white);margin-bottom:10px;font-size:22px}
 .summary-table>p{color:var(--muted);margin-bottom:20px;font-size:14px}
-
-/* Status Distribution */
 .status-dist{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-
-/* Footer */
 .footer{
   background:linear-gradient(135deg,var(--card),var(--card2));
   border:1px solid var(--border);
@@ -397,8 +365,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
 }
 .footer p{margin:5px 0}
 .footer .brand{color:var(--cyan);font-weight:bold;margin-top:10px}
-
-/* Maqas Header */
 .maqas-header{
   background:linear-gradient(135deg,var(--cyan),var(--purple));
   color:#fff;
@@ -410,16 +376,12 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
   font-weight:bold;
   box-shadow:0 5px 20px rgba(6,214,214,0.3);
 }
-
-/* Section Title */
 .section-title{
   color:var(--white);
   font-size:20px;
   margin:25px 0 15px 0;
   display:flex;align-items:center;gap:10px;
 }
-
-/* Progress Bar */
 .progress-container{margin:10px 0}
 .progress-bar{
   height:12px;
@@ -438,8 +400,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
 .progress-fill.orange{background:linear-gradient(90deg,#d97706,#f59e0b)}
 .progress-fill.red{background:linear-gradient(90deg,#dc2626,#ef4444)}
 .progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:5px}
-
-/* Analysis Cards */
 .analysis-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -468,17 +428,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
   align-items:center;
   gap:10px;
 }
-.analysis-card .big-num{
-  font-size:3em;
-  font-weight:bold;
-  background:linear-gradient(135deg,var(--cyan),var(--purple));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  margin:10px 0;
-}
-.analysis-card .sub{color:var(--muted);font-size:13px}
-
-/* Donut Chart */
 .donut-container{
   display:flex;
   align-items:center;
@@ -529,8 +478,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
 .legend-color{width:14px;height:14px;border-radius:4px}
 .legend-text{flex:1;color:var(--text);font-size:13px}
 .legend-value{color:var(--cyan);font-weight:bold;font-size:14px}
-
-/* Bar Chart */
 .bar-chart{margin:20px 0}
 .bar-row{
   display:flex;
@@ -571,8 +518,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
   font-weight:bold;
   font-size:14px;
 }
-
-/* KPI Cards */
 .kpi-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -599,8 +544,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
 .kpi-card .kpi-change{font-size:12px;margin-top:8px}
 .kpi-card .kpi-change.up{color:#10b981}
 .kpi-card .kpi-change.down{color:#ef4444}
-
-/* Summary Project Card */
 .summary-project{
   background:rgba(255,255,255,0.03);
   border:1px solid var(--border);
@@ -635,29 +578,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
 }
 .metric-box .m-label{color:var(--muted);font-size:11px;margin-bottom:5px}
 .metric-box .m-value{color:var(--white);font-size:1.4em;font-weight:bold}
-
-/* Tabs inside page */
-.inner-tabs{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
-  flex-wrap:wrap;
-}
-.inner-tab{
-  padding:10px 20px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid var(--border);
-  border-radius:10px;
-  cursor:pointer;
-  font-size:13px;
-  color:var(--text);
-  transition:all 0.3s;
-  font-family:'Tajawal',sans-serif;
-}
-.inner-tab:hover{background:rgba(6,214,214,0.1);color:var(--cyan)}
-.inner-tab.active{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;border-color:transparent}
-
-/* Responsive */
 @media(max-width:768px){
   .topbar{flex-direction:column;gap:15px;text-align:center}
   .project-header{flex-direction:column}
@@ -679,7 +599,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
 </head>
 <body>
 <div class="container">
-  <!-- Top Bar -->
   <div class="topbar">
     <div class="topbar-right">
       <div class="logo">AM</div>
@@ -689,28 +608,27 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
     <div class="topbar-left">
-      <div class="badge-alert">⚠️ تنبيهات عاجلة: 3</div>
+      <div class="badge-alert">⚠️ تنبيهات عاجلة: 4</div>
       <div class="badge-update">🕐 آخر تحديث: اليوم</div>
     </div>
   </div>
 
-  <!-- Nav Tabs -->
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('dashboard',this)"> لوحة التحكم</button>
+    <button class="nav-tab active" onclick="showPage('dashboard',this)">📊 لوحة التحكم</button>
     <button class="nav-tab" onclick="showPage('projects',this)">📁 المشاريع</button>
     <button class="nav-tab" onclick="showPage('summary',this)">📋 الملخص الكامل</button>
     <button class="nav-tab" onclick="showPage('analysis',this)">📈 التحليل</button>
-    <button class="nav-tab" onclick="showPage('materials',this)"> طلب المواد الخام والدرف</button>
+    <button class="nav-tab" onclick="showPage('materials',this)">📦 طلب المواد الخام والدرف</button>
   </div>
 
-  <!-- Dashboard Page -->
   <div id="dashboard" class="page active">
     <div class="alert-box">
-      <h3>🚨 تنبيهات عاجلة: 3</h3>
+      <h3>🚨 تنبيهات عاجلة: 4</h3>
       <ul>
         <li>الهجرة سيتي متوقفة بانتظار قرار مدير المشروع</li>
         <li>ماسكات غير معتمدة في مشروعين (الهجرة سيتي، نزل خيالا)</li>
-        <li>رفع مقاسات بلوكات ملفي الأصالة (119، 120، 127) جارٍ هذا الأسبوع</li>
+        <li>ملفي الأصالة - بلوك 128: تم سحب فريق التركيب لعدم جاهزية الموقع (بلاط وعتبات)</li>
+        <li>سدايم نام - بلوك 15: مؤجل لعدم وجود بلاط</li>
       </ul>
     </div>
 
@@ -727,13 +645,13 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
       <div class="stat-card">
         <h3>تم تصنيعه</h3>
-        <div class="value">2,166</div>
-        <div class="label">21.3% من الإجمالي</div>
+        <div class="value">2,578</div>
+        <div class="label">25.4% من الإجمالي</div>
       </div>
       <div class="stat-card">
         <h3>تم توريده</h3>
-        <div class="value">1,893</div>
-        <div class="label">18.6% من الإجمالي</div>
+        <div class="value">2,474</div>
+        <div class="label">24.4% من الإجمالي</div>
       </div>
     </div>
 
@@ -741,14 +659,14 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       <h2>🗺️ الخريطة الذهنية للمشاريع</h2>
       <p>اضغط على أي مشروع لعرض التفاصيل</p>
       <div class="mind-map-grid">
-        <div class="mind-map-item status-final" onclick="showProject('azal-m1')">🔧 سدايم أزال (م1)</div>
-        <div class="mind-map-item status-waiting" onclick="showProject('anmar-m1')">⚠️ سدايم أنمار (م1)</div>
-        <div class="mind-map-item status-stopped" onclick="showProject('hijra')">⏸ الهجرة سيتي</div>
+        <div class="mind-map-item status-final" onclick="showProject('azal-m1')">🔧 سدايم أزال</div>
+        <div class="mind-map-item status-final" onclick="showProject('anmar-m1')">✅ سدايم أنمار</div>
+        <div class="mind-map-item status-stopped" onclick="showProject('hijra')"> الهجرة سيتي</div>
         <div class="mind-map-item status-progress" onclick="showProject('asala')">✅ ملفي الأصالة</div>
         <div class="mind-map-item status-notstarted" onclick="showProject('azal-m2')">○ سدايم أزال (م2)</div>
         <div class="mind-map-item status-notstarted" onclick="showProject('khayala')">○ نزل خيالا</div>
         <div class="mind-map-item status-measuring" onclick="showProject('nam')">📐 سدايم نام</div>
-        <div class="mind-map-item status-measuring" onclick="showProject('mohit')"> محيط الروابي</div>
+        <div class="mind-map-item status-measuring" onclick="showProject('mohit')">📐 محيط الروابي</div>
       </div>
     </div>
 
@@ -769,13 +687,13 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         </div>
         <div class="stat-card">
           <h3>نسبة التصنيع</h3>
-          <div class="value">21.3%</div>
-          <div class="label">2,166 من 10,153</div>
+          <div class="value">25.4%</div>
+          <div class="label">2,578 من 10,153</div>
         </div>
         <div class="stat-card">
           <h3>نسبة التوريد</h3>
-          <div class="value">18.6%</div>
-          <div class="label">1,893 من 10,153</div>
+          <div class="value">24.4%</div>
+          <div class="label">2,474 من 10,153</div>
         </div>
       </div>
 
@@ -784,8 +702,8 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         <table>
           <thead><tr><th>المشروع</th><th>العدد</th></tr></thead>
           <tbody>
-            <tr><td>سدايم أزال م1</td><td>1,325</td></tr>
-            <tr><td>سدايم أنمار م1</td><td>578</td></tr>
+            <tr><td>سدايم أزال</td><td>1,325</td></tr>
+            <tr><td>سدايم أنمار</td><td>578</td></tr>
             <tr><td>الهجرة سيتي</td><td>1,026</td></tr>
             <tr><td>ملفي الأصالة</td><td>1,229</td></tr>
             <tr><td>سدايم أزال م2</td><td>1,500</td></tr>
@@ -796,13 +714,12 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         </table>
       </div>
 
-      <h3 class="section-title"> توزيع حالات المشاريع</h3>
+      <h3 class="section-title">🎯 توزيع حالات المشاريع</h3>
       <div class="status-dist">
         <span class="status-badge status-progress">✅ جارٍ (1)</span>
-        <span class="status-badge status-final">🔧 مراحل نهائية (1)</span>
-        <span class="status-badge status-waiting">⚠️ انتظار دفعة (1)</span>
+        <span class="status-badge status-final">🔧 مكتمل (2)</span>
         <span class="status-badge status-stopped">⏸ متوقف (1)</span>
-        <span class="status-badge status-measuring"> رفع مقاسات (2)</span>
+        <span class="status-badge status-measuring">📐 رفع مقاسات/تصنيع (2)</span>
         <span class="status-badge status-notstarted">○ لم يبدأ (2)</span>
       </div>
     </div>
@@ -820,23 +737,23 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
           </thead>
           <tbody>
             <tr>
-              <td>١</td><td>سدايم أزال (م1)</td><td>أزال للمقاولات</td>
-              <td>—</td><td>911</td><td>1,325</td><td>911</td><td>~768</td>
-              <td><span class="status-badge status-final">🔧 مراحل نهائية</span></td>
+              <td>١</td><td>سدايم أزال</td><td>أزال للمقاولات</td>
+              <td>—</td><td>1,325</td><td>1,325</td><td>1,325</td><td>~1,000</td>
+              <td><span class="status-badge status-final">🔧 مكتمل التوريد</span></td>
             </tr>
             <tr>
-              <td>٢</td><td>سدايم أنمار (م1)</td><td>أنمار للمقاولات</td>
+              <td>٢</td><td>سدايم أنمار</td><td>أنمار للمقاولات</td>
               <td>—</td><td>578</td><td>578</td><td>578</td><td>264</td>
-              <td><span class="status-badge status-waiting">⚠️ انتظار دفعة</span></td>
+              <td><span class="status-badge status-final">✅ جارٍ</span></td>
             </tr>
             <tr>
               <td>٣</td><td>الهجرة سيتي</td><td>تشييد البنى الفوقية</td>
               <td>918</td><td>108</td><td>1,026</td><td>4</td><td>4</td>
-              <td><span class="status-badge status-stopped">⏸ متوقف</span></td>
+              <td><span class="status-badge status-stopped"> متوقف</span></td>
             </tr>
             <tr>
-              <td>٤</td><td>ملفي الأصالة</td><td>أثيل للمقاولات</td>
-              <td>747</td><td>482</td><td>1,229</td><td>389</td><td>جارٍ (بلوك 129 >50%)</td>
+              <td></td><td>ملفي الأصالة</td><td>أثيل للمقاولات</td>
+              <td>747</td><td>482</td><td>1,229</td><td>482</td><td>275</td>
               <td><span class="status-badge status-progress">✅ جارٍ</span></td>
             </tr>
             <tr>
@@ -856,12 +773,13 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
             </tr>
             <tr>
               <td>٨</td><td>محيط الروابي</td><td>محيط الروابي للمقاولات</td>
-              <td>1,430</td><td>87</td><td>1,507</td><td>11</td><td>11</td>
-              <td><span class="status-badge status-measuring">📐 رفع مقاسات</span></td>
+              <td>1,430</td><td>85</td><td>1,507</td><td>85</td><td>11</td>
+              <td><span class="status-badge status-measuring">📐 تصنيع وتركيب</span></td>
             </tr>
             <tr class="total-row">
               <td></td><td>الإجمالي</td><td>—</td>
-              <td>6,583</td><td>2,166</td><td>10,153</td><td>1,893</td><td>~1,047</td><td></td>
+              <td>6,583</td><td>2,578</td><td>10,153</td><td>2,474</td><td>~1,554</td>
+              <td></td>
             </tr>
           </tbody>
         </table>
@@ -872,79 +790,79 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
     </div>
 
     <div class="footer">
-      <p> تحديث أسبوعي</p>
+      <p>📅 تحديث أسبوعي</p>
       <p>سيتم تحديث هذه اللوحة أسبوعياً لمتابعة آخر المستجدات في جميع المشاريع · آخر تحديث: اليوم</p>
       <p class="brand">لوحة متابعة المشاريع · إدارة العمليات · Abdallah Magdy Elhkoly</p>
     </div>
   </div>
 
-  <!-- Projects Page -->
   <div id="projects" class="page">
-    <!-- سدايم أزال م1 -->
     <div class="project-card">
       <div class="project-header">
         <div class="project-title">
-          <h2>دارة سدايم — أزال (المرحلة الأولى)</h2>
+          <h2>دارة سدايم — أزال</h2>
           <div class="subtitle">شركة أزال للمقاولات · بلوكات 20، 24، 25، 26</div>
         </div>
-        <div class="project-status status-final">🔧 مراحل نهائية</div>
+        <div class="project-status status-final">✅ مكتمل التوريد</div>
       </div>
       
       <div class="project-info">
         <div class="info-item"><div class="label">الإجمالي الكلي</div><div class="value cyan">1,325</div></div>
-        <div class="info-item"><div class="label">تم تصنيعه</div><div class="value green">911</div></div>
-        <div class="info-item"><div class="label">بالمتبقي بالتصنيع</div><div class="value orange">414</div></div>
+        <div class="info-item"><div class="label">تم تصنيعه</div><div class="value green">1,325</div></div>
+        <div class="info-item"><div class="label">تم توريده</div><div class="value green">1,325</div></div>
+        <div class="info-item"><div class="label">تم تركيبه</div><div class="value purple">~1,000</div></div>
       </div>
 
       <h3>📦 تفاصيل البلوكات</h3>
       <div class="block-card">
-        <h4>بلوك 20 ✓ مراحل نهائية</h4>
+        <h4>بلوك 20 ✅ مراحل نهائية</h4>
         <p>306 باب · مصنّع ومورّد · التركيب بالمراحل النهائية</p>
       </div>
       <div class="block-card">
-        <h4>بلوك 24 مرحلة التركيب</h4>
+        <h4>بلوك 24 ✅ مرحلة التركيب</h4>
         <p>462 باب · مصنّع ومورّد · جارٍ التركيب</p>
       </div>
       <div class="block-card">
-        <h4>بلوك 25 + 26 بالتصنيع</h4>
-        <p>557 باب · 143 درفة مصنّعة ومورّدة · الحلوق والبراويز كاملة · باقي الدرف بالتصنيع</p>
+        <h4>بلوك 25 + 26 ✅ تم التوريد بالكامل</h4>
+        <p>557 باب · تم ترحيل جميع الأبواب وبدء التركيب</p>
       </div>
 
       <h3>📊 ملخص الكميات</h3>
       <div class="project-info">
         <div class="info-item"><div class="label">إجمالي الأبواب</div><div class="value cyan">1,325</div></div>
-        <div class="info-item"><div class="label">تم تصنيعه</div><div class="value green">911</div></div>
-        <div class="info-item"><div class="label">تم توريده</div><div class="value green">911</div></div>
-        <div class="info-item"><div class="label">بالمتبقي بالتصنيع</div><div class="value orange">414</div></div>
-        <div class="info-item"><div class="label">الحلوق والبراويز</div><div class="value purple">557 كاملة ✓</div></div>
+        <div class="info-item"><div class="label">تم تصنيعه</div><div class="value green">1,325</div></div>
+        <div class="info-item"><div class="label">تم توريده</div><div class="value green">1,325</div></div>
+        <div class="info-item"><div class="label">تم تركيبه</div><div class="value purple">~1,000</div></div>
       </div>
-      <div class="note">⚠️ انتظار دفعة</div>
+      <div class="success">
+        ✅ تم إكمال توريد المشروع بالكامل لشركة أزال للمقاولات
+      </div>
     </div>
 
-    <!-- سدايم أنمار م1 -->
     <div class="project-card">
       <div class="project-header">
         <div class="project-title">
-          <h2>دارة سدايم — أنمار (المرحلة الأولى)</h2>
+          <h2>دارة سدايم — أنمار</h2>
           <div class="subtitle">شركة أنمار للمقاولات · بلوكات 28، 29</div>
         </div>
-        <div class="project-status status-waiting">⚠️ انتظار دفعة</div>
+        <div class="project-status status-final">✅ جارٍ</div>
       </div>
       
       <div class="project-info">
         <div class="info-item"><div class="label">الإجمالي الكلي</div><div class="value cyan">578</div></div>
         <div class="info-item"><div class="label">تم تصنيعه</div><div class="value green">578</div></div>
+        <div class="info-item"><div class="label">تم توريده</div><div class="value green">578</div></div>
         <div class="info-item"><div class="label">تم تركيبه</div><div class="value purple">264</div></div>
       </div>
 
       <h3>📦 تفاصيل البلوكات</h3>
       <div class="block-card">
-        <h4>بلوك 29 ✓ مكتمل</h4>
+        <h4>بلوك 29 ✅ مكتمل</h4>
         <p>264 باب · مصنّع ومورّد ومركّب بالكامل</p>
       </div>
       <div class="block-card">
-        <h4>بلوك 28 ️ انتظار دفعة</h4>
-        <p>314 باب · مصنّع ومورّد · لم يبدأ التركيب لعدم دفع دفعة التوريد</p>
+        <h4>بلوك 28  تم بدء التركيب</h4>
+        <p>314 باب · مصنّع ومورّد · تم بدء التركيب</p>
       </div>
 
       <h3>📊 ملخص الكميات</h3>
@@ -953,14 +871,12 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         <div class="info-item"><div class="label">تم تصنيعه</div><div class="value green">578</div></div>
         <div class="info-item"><div class="label">تم توريده</div><div class="value green">578</div></div>
         <div class="info-item"><div class="label">تم تركيبه</div><div class="value purple">264</div></div>
-        <div class="info-item"><div class="label">بانتظار التركيب</div><div class="value orange">314</div></div>
       </div>
-      <div class="warning">
-        ⚠️ تنبيه: بلوك 28 (314 باب) مصنّع ومورّد للموقع لكن لم يبدأ التركيب بسبب عدم دفع دفعة التوريد من قبل الشركة.
+      <div class="success">
+        ✅ تم استكمال التركيب في بلوك 29 · جارٍ التركيب في بلوك 28
       </div>
     </div>
 
-    <!-- الهجرة سيتي -->
     <div class="project-card">
       <div class="project-header">
         <div class="project-title">
@@ -1001,7 +917,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
 
-    <!-- ملفي الأصالة -->
     <div class="project-card">
       <div class="project-header">
         <div class="project-title">
@@ -1018,32 +933,34 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
 
       <h3>📦 تفاصيل البلوكات</h3>
       <div class="block-card">
-        <h4>بلوك 129 ✓ التصنيع والتوريد مكتمل</h4>
-        <p>275 باب · مصنّع ومورّد بالكامل · جارٍ التركيب — تم إنجاز أكثر من 50%</p>
+        <h4>بلوك 129 ✅ تم التركيب بالكامل</h4>
+        <p>275 باب · مصنّع ومورّد ومركّب بالكامل</p>
       </div>
       <div class="block-card">
-        <h4>بلوك 128 جزئي</h4>
-        <p>207 باب · 114 موردة · 93 في المصنع</p>
+        <h4>بلوك 128 ⚠️ تم سحب فريق التركيب</h4>
+        <p>207 باب · تم رفع المقاسات للتعديل بناءً على الشيرب المعتمد · تم انتظار الموقع 3 أيام (5 يوليو 2026) لكن لم يتم تنفيذ البلاط والعتبات · تقرر سحب الفريق لحين جاهزية الموقع</p>
       </div>
       <div class="block-card">
         <h4>بلوك 119 + 120 + 127 📐 لم تُرفع مقاساتها بعد</h4>
-        <p>747 باب · لم تُرفع مقاساتها حتى الآن — سيتم رفع مقاساتها هذا الأسبوع</p>
+        <p>747 باب · ننتظر تأكيد رسمي وخطي بجاهزية الموقع · لا يمكن التركيب بالتجزئة</p>
       </div>
 
-      <h3>️ المواصفات الفنية</h3>
+      <h3>⚙️ المواصفات الفنية</h3>
       <div class="project-info">
         <div class="info-item"><div class="label">كود اللون</div><div class="value cyan">XTHT</div></div>
         <div class="info-item"><div class="label">الماسكة</div><div class="value">كود 2020 أسود</div></div>
         <div class="info-item"><div class="label">نوع الحلق</div><div class="value">كيرف عادية</div></div>
-        <div class="info-item"><div class="label">حصر الحلق</div><div class="value">لم يتم بعد</div></div>
+        <div class="info-item"><div class="label">حصر الحلق</div><div class="value">تم</div></div>
       </div>
 
       <div class="warning">
-        ⚠️ ملاحظة هامة: بلوكات 119 و 120 و 127 (إجمالي 747 باب) لم تُرفع مقاساتها بعد — وسيتم رفع مقاساتها هذا الأسبوع إن شاء الله.
+        ⚠️ <strong>ملاحظات هامة:</strong><br>
+        • بلوك 128: تم رفع المقاسات للتعديل، لكن تم سحب فريق التركيب لعدم جاهزية الموقع (بلاط وعتبات)<br>
+        • البلوكات المتبقية: ننتظر تأكيد رسمي وخطي بجاهزية الموقع بالكامل<br>
+        • لا يمكن دخول فيلا لتركيب عدد محدود من الأبواب ثم العودة لاحقاً - يجب أن تكون الفيلا جاهزة بالكامل
       </div>
     </div>
 
-    <!-- سدايم أزال م2 -->
     <div class="project-card">
       <div class="project-header">
         <div class="project-title">
@@ -1079,7 +996,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
 
-    <!-- نزل خيالا -->
     <div class="project-card">
       <div class="project-header">
         <div class="project-title">
@@ -1094,7 +1010,7 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         <div class="info-item"><div class="label">درف + مصنّع</div><div class="value">2,088 + 0</div></div>
       </div>
 
-      <h3>📏 الدرف المطلوبة</h3>
+      <h3> الدرف المطلوبة</h3>
       <div class="table-wrap">
         <table>
           <thead><tr><th>المقاس</th><th>المطلوب</th><th>المتبقي</th></tr></thead>
@@ -1107,22 +1023,20 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         </table>
       </div>
 
-      <h3>️ المواصفات الفنية</h3>
+      <h3>⚙️ المواصفات الفنية</h3>
       <div class="project-info">
         <div class="info-item"><div class="label">كود اللون</div><div class="value cyan">103 سيجما</div></div>
         <div class="info-item"><div class="label">الماسكة</div><div class="value">لم تعتمد بعد</div></div>
         <div class="info-item"><div class="label">نوع الحلق</div><div class="value">كيرف عادية</div></div>
         <div class="info-item"><div class="label">البراويز</div><div class="value purple">10 سم</div></div>
       </div>
-      <div class="note">📐 رفع مقاسات</div>
     </div>
 
-    <!-- سدايم نام -->
     <div class="project-card">
       <div class="project-header">
         <div class="project-title">
           <h2>دارة سدايم — نام</h2>
-          <div class="subtitle">شركة نام للمقاولات · جارٍ رفع المقاسات وتجهيز خطة التوريد</div>
+          <div class="subtitle">شركة نام للمقاولات · جارٍ رفع المقاسات</div>
         </div>
         <div class="project-status status-measuring">📐 رفع مقاسات</div>
       </div>
@@ -1132,16 +1046,14 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         <div class="info-item"><div class="label">درف + مصنّع</div><div class="value">900 + 0</div></div>
       </div>
 
-      <h3>📏 الدرف المطلوبة</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>المقاس</th><th>المطلوب</th><th>المتبقي</th></tr></thead>
-          <tbody>
-            <tr><td><strong>22072</strong></td><td>530</td><td>530</td></tr>
-            <tr><td><strong>22092</strong></td><td>370</td><td>370</td></tr>
-            <tr class="total-row"><td>الإجمالي</td><td>900</td><td></td></tr>
-          </tbody>
-        </table>
+      <h3>📦 تفاصيل البلوكات</h3>
+      <div class="block-card">
+        <h4>بلوك 11 📐 تم رفع المقاسات</h4>
+        <p>221 باب · تم رفع المقاسات لكن يوجد مقاسات شاذة تم إبلاغ مدير المشروع بها للتعديل · 3 أبواب في كل فيلا لا يوجد لها بلاط (في انتظار الاعتماد بالتصنيع)</p>
+      </div>
+      <div class="block-card">
+        <h4>بلوك 15 ⏸ مؤجل</h4>
+        <p>تم تأجيل العمل لعدم وجود بلاط</p>
       </div>
 
       <h3>⚙️ المواصفات الفنية</h3>
@@ -1151,23 +1063,28 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         <div class="info-item"><div class="label">نوع الحلق</div><div class="value">مربعة</div></div>
         <div class="info-item"><div class="label">البراويز</div><div class="value purple">8 سم</div></div>
       </div>
+
+      <div class="warning">
+        ️ <strong>ملاحظات:</strong><br>
+        • بلوك 11: يوجد مقاسات شاذة تحتاج تعديل - في انتظار الاعتماد<br>
+        • بلوك 15: مؤجل لعدم وجود بلاط
+      </div>
     </div>
 
-    <!-- محيط الروابي -->
     <div class="project-card">
       <div class="project-header">
         <div class="project-title">
           <h2>محيط الروابي</h2>
-          <div class="subtitle">شركة محيط الروابي للمقاولات · جارٍ رفع المقاسات وتجهيز خطة التوريد</div>
+          <div class="subtitle">شركة محيط الروابي للمقاولات · جارٍ التصنيع والتركيب</div>
         </div>
-        <div class="project-status status-measuring">📐 رفع مقاسات</div>
+        <div class="project-status status-measuring">📐 تصنيع وتركيب</div>
       </div>
       
       <div class="project-info">
         <div class="info-item"><div class="label">الإجمالي الكلي</div><div class="value cyan">1,507</div></div>
-        <div class="info-item"><div class="label">تم تصنيعه وتوريده وتركيبه</div><div class="value green">11</div></div>
-        <div class="info-item"><div class="label">بالتصنيع</div><div class="value orange">76</div></div>
-        <div class="info-item"><div class="label">رفع مقاسات</div><div class="value purple">1,420</div></div>
+        <div class="info-item"><div class="label">تم تصنيعه وتوريده</div><div class="value green">85</div></div>
+        <div class="info-item"><div class="label">بالتصنيع</div><div class="value orange">2</div></div>
+        <div class="info-item"><div class="label">تم تركيبه</div><div class="value purple">11</div></div>
       </div>
 
       <h3>📏 الدرف المطلوبة</h3>
@@ -1191,22 +1108,20 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         <div class="info-item"><div class="label">البراويز</div><div class="value purple">10 سم</div></div>
       </div>
 
-      <div class="note">
-        💡 ملاحظة: إجمالي الأبواب 1,507 · تم تصنيع وتوريد وتركيب 11 باب · بالتصنيع 76 باب · باقي الأبواب (1,420) في حالة رفع مقاسات · الدرف المطلوبة (1,430) بعد استثناء الأبواب التي دخلت التصنيع.
+      <div class="success">
+        ✅ تم ترحيل 85 باب · متبقي 2 باب فقط بالتصنيع
       </div>
     </div>
   </div>
 
-  <!-- Summary Page -->
   <div id="summary" class="page">
     <div class="summary-table">
-      <h2> الملخص الكامل لجميع المشاريع</h2>
+      <h2>📋 الملخص الكامل لجميع المشاريع</h2>
       <p>نظرة شاملة ومفصلة على جميع المشاريع مع مؤشرات الأداء الرئيسية</p>
 
-      <!-- KPIs -->
       <div class="kpi-grid">
         <div class="kpi-card">
-          <div class="icon">🏗️</div>
+          <div class="icon">️</div>
           <div class="kpi-value">8</div>
           <div class="kpi-label">إجمالي المشاريع</div>
           <div class="kpi-change up">↑ +1 مشروع جديد</div>
@@ -1219,21 +1134,21 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         </div>
         <div class="kpi-card">
           <div class="icon">🏭</div>
-          <div class="kpi-value">2,166</div>
+          <div class="kpi-value">2,578</div>
           <div class="kpi-label">تم تصنيعه</div>
-          <div class="kpi-change up">21.3%</div>
+          <div class="kpi-change up">25.4%</div>
         </div>
         <div class="kpi-card">
           <div class="icon">🚚</div>
-          <div class="kpi-value">1,893</div>
+          <div class="kpi-value">2,474</div>
           <div class="kpi-label">تم توريده</div>
-          <div class="kpi-change up">18.6%</div>
+          <div class="kpi-change up">24.4%</div>
         </div>
         <div class="kpi-card">
           <div class="icon">🔧</div>
-          <div class="kpi-value">1,047</div>
+          <div class="kpi-value">~1,554</div>
           <div class="kpi-label">تم تركيبه</div>
-          <div class="kpi-change up">~10.3%</div>
+          <div class="kpi-change up">~15.3%</div>
         </div>
         <div class="kpi-card">
           <div class="icon">📐</div>
@@ -1244,48 +1159,45 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
 
-    <!-- ملخص كل مشروع -->
     <div class="summary-project">
       <div class="summary-project-header">
         <div>
-          <div class="summary-project-title">🔧 سدايم أزال (المرحلة الأولى)</div>
+          <div class="summary-project-title">✅ سدايم أزال - مكتمل التوريد</div>
           <div class="summary-project-company">شركة أزال للمقاولات · بلوكات 20، 24، 25، 26</div>
         </div>
-        <span class="status-badge status-final">مراحل نهائية</span>
+        <span class="status-badge status-final">مكتمل التوريد</span>
       </div>
       <div class="summary-metrics">
         <div class="metric-box"><div class="m-label">الإجمالي</div><div class="m-value cyan">1,325</div></div>
-        <div class="metric-box"><div class="m-label">تم تصنيعه</div><div class="m-value green">911</div></div>
-        <div class="metric-box"><div class="m-label">تم توريده</div><div class="m-value green">911</div></div>
-        <div class="metric-box"><div class="m-label">تم تركيبه</div><div class="m-value purple">~768</div></div>
-        <div class="metric-box"><div class="m-label">بالمتبقي</div><div class="m-value orange">414</div></div>
-        <div class="metric-box"><div class="m-label">نسبة الإنجاز</div><div class="m-value cyan">68.8%</div></div>
+        <div class="metric-box"><div class="m-label">تم تصنيعه</div><div class="m-value green">1,325</div></div>
+        <div class="metric-box"><div class="m-label">تم توريده</div><div class="m-value green">1,325</div></div>
+        <div class="metric-box"><div class="m-label">تم تركيبه</div><div class="m-value purple">~1,000</div></div>
+        <div class="metric-box"><div class="m-label">نسبة الإنجاز</div><div class="m-value cyan">75.5%</div></div>
       </div>
       <div class="progress-container">
-        <div class="progress-label"><span>التصنيع</span><span>911 / 1,325</span></div>
-        <div class="progress-bar"><div class="progress-fill green" style="width:68.8%"></div></div>
+        <div class="progress-label"><span>التركيب</span><span>~1,000 / 1,325</span></div>
+        <div class="progress-bar"><div class="progress-fill green" style="width:75.5%"></div></div>
       </div>
     </div>
 
     <div class="summary-project">
       <div class="summary-project-header">
         <div>
-          <div class="summary-project-title">⚠️ سدايم أنمار (المرحلة الأولى)</div>
+          <div class="summary-project-title">✅ سدايم أنمار - جارٍ</div>
           <div class="summary-project-company">شركة أنمار للمقاولات · بلوكات 28، 29</div>
         </div>
-        <span class="status-badge status-waiting">انتظار دفعة</span>
+        <span class="status-badge status-final">جارٍ</span>
       </div>
       <div class="summary-metrics">
         <div class="metric-box"><div class="m-label">الإجمالي</div><div class="m-value cyan">578</div></div>
         <div class="metric-box"><div class="m-label">تم تصنيعه</div><div class="m-value green">578</div></div>
         <div class="metric-box"><div class="m-label">تم توريده</div><div class="m-value green">578</div></div>
         <div class="metric-box"><div class="m-label">تم تركيبه</div><div class="m-value purple">264</div></div>
-        <div class="metric-box"><div class="m-label">بانتظار التركيب</div><div class="m-value orange">314</div></div>
-        <div class="metric-box"><div class="m-label">نسبة الإنجاز</div><div class="m-value cyan">100%</div></div>
+        <div class="metric-box"><div class="m-label">نسبة الإنجاز</div><div class="m-value cyan">45.7%</div></div>
       </div>
       <div class="progress-container">
-        <div class="progress-label"><span>التصنيع</span><span>578 / 578</span></div>
-        <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+        <div class="progress-label"><span>التركيب</span><span>264 / 578</span></div>
+        <div class="progress-bar"><div class="progress-fill green" style="width:45.7%"></div></div>
       </div>
     </div>
 
@@ -1323,8 +1235,8 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         <div class="metric-box"><div class="m-label">الإجمالي</div><div class="m-value cyan">1,229</div></div>
         <div class="metric-box"><div class="m-label">درف مطلوبة</div><div class="m-value">747</div></div>
         <div class="metric-box"><div class="m-label">تم تصنيعه</div><div class="m-value green">482</div></div>
-        <div class="metric-box"><div class="m-label">تم توريده</div><div class="m-value green">389</div></div>
-        <div class="metric-box"><div class="m-label">جارٍ التركيب</div><div class="m-value purple">بلوك 129</div></div>
+        <div class="metric-box"><div class="m-label">تم توريده</div><div class="m-value green">482</div></div>
+        <div class="metric-box"><div class="m-label">تم تركيبه</div><div class="m-value purple">275</div></div>
         <div class="metric-box"><div class="m-label">نسبة الإنجاز</div><div class="m-value cyan">39.2%</div></div>
       </div>
       <div class="progress-container">
@@ -1405,23 +1317,22 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
           <div class="summary-project-title">📐 محيط الروابي</div>
           <div class="summary-project-company">شركة محيط الروابي للمقاولات · مشروع جديد</div>
         </div>
-        <span class="status-badge status-measuring">رفع مقاسات</span>
+        <span class="status-badge status-measuring">تصنيع وتركيب</span>
       </div>
       <div class="summary-metrics">
         <div class="metric-box"><div class="m-label">الإجمالي</div><div class="m-value cyan">1,507</div></div>
         <div class="metric-box"><div class="m-label">درف مطلوبة</div><div class="m-value">1,430</div></div>
-        <div class="metric-box"><div class="m-label">تم تصنيعه</div><div class="m-value green">87</div></div>
-        <div class="metric-box"><div class="m-label">تم توريده</div><div class="m-value green">11</div></div>
+        <div class="metric-box"><div class="m-label">تم تصنيعه</div><div class="m-value green">85</div></div>
+        <div class="metric-box"><div class="m-label">تم توريده</div><div class="m-value green">85</div></div>
         <div class="metric-box"><div class="m-label">تم تركيبه</div><div class="m-value green">11</div></div>
-        <div class="metric-box"><div class="m-label">نسبة الإنجاز</div><div class="m-value cyan">5.8%</div></div>
+        <div class="metric-box"><div class="m-label">نسبة الإنجاز</div><div class="m-value cyan">5.6%</div></div>
       </div>
       <div class="progress-container">
-        <div class="progress-label"><span>التصنيع</span><span>87 / 1,507</span></div>
-        <div class="progress-bar"><div class="progress-fill orange" style="width:5.8%"></div></div>
+        <div class="progress-label"><span>التصنيع</span><span>85 / 1,507</span></div>
+        <div class="progress-bar"><div class="progress-fill orange" style="width:5.6%"></div></div>
       </div>
     </div>
 
-    <!-- جدول ملخص شامل -->
     <div class="project-card">
       <h2>📊 جدول الملخص الشامل — مقارنة جميع المشاريع</h2>
       <div class="table-wrap">
@@ -1443,16 +1354,16 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
           </thead>
           <tbody>
             <tr>
-              <td></td><td>سدايم أزال م1</td><td>أزال</td>
-              <td><strong>1,325</strong></td><td>—</td><td>911</td><td>911</td><td>~768</td>
-              <td>—</td><td><span class="status-badge status-final">مراحل نهائية</span></td>
-              <td><strong style="color:#10b981">68.8%</strong></td>
+              <td>١</td><td>سدايم أزال</td><td>أزال</td>
+              <td><strong>1,325</strong></td><td>—</td><td>1,325</td><td>1,325</td><td>~1,000</td>
+              <td>—</td><td><span class="status-badge status-final">مكتمل التوريد</span></td>
+              <td><strong style="color:#10b981">75.5%</strong></td>
             </tr>
             <tr>
-              <td>٢</td><td>سدايم أنمار م1</td><td>أنمار</td>
+              <td>٢</td><td>سدايم أنمار</td><td>أنمار</td>
               <td><strong>578</strong></td><td>—</td><td>578</td><td>578</td><td>264</td>
-              <td>—</td><td><span class="status-badge status-waiting">انتظار دفعة</span></td>
-              <td><strong style="color:#10b981">100%</strong></td>
+              <td>—</td><td><span class="status-badge status-final">جارٍ</span></td>
+              <td><strong style="color:#10b981">45.7%</strong></td>
             </tr>
             <tr>
               <td>٣</td><td>الهجرة سيتي</td><td>تشييد البنى</td>
@@ -1461,8 +1372,8 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
               <td><strong style="color:#f59e0b">10.5%</strong></td>
             </tr>
             <tr>
-              <td></td><td>ملفي الأصالة</td><td>أثيل</td>
-              <td><strong>1,229</strong></td><td>747</td><td>482</td><td>389</td><td>—</td>
+              <td>٤</td><td>ملفي الأصالة</td><td>أثيل</td>
+              <td><strong>1,229</strong></td><td>747</td><td>482</td><td>482</td><td>275</td>
               <td>XTHT</td><td><span class="status-badge status-progress">جارٍ</span></td>
               <td><strong style="color:#10b981">39.2%</strong></td>
             </tr>
@@ -1473,7 +1384,7 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
               <td><strong style="color:#ef4444">0%</strong></td>
             </tr>
             <tr>
-              <td></td><td>نزل خيالا</td><td>أثيل</td>
+              <td>٦</td><td>نزل خيالا</td><td>أثيل</td>
               <td><strong>2,088</strong></td><td>2,088</td><td>—</td><td>—</td><td>—</td>
               <td>103 سيجما</td><td><span class="status-badge status-notstarted">لم يبدأ</span></td>
               <td><strong style="color:#ef4444">0%</strong></td>
@@ -1486,22 +1397,21 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
             </tr>
             <tr>
               <td>٨</td><td>محيط الروابي</td><td>محيط الروابي</td>
-              <td><strong>1,507</strong></td><td>1,430</td><td>87</td><td>11</td><td>11</td>
-              <td>N-16 / 249</td><td><span class="status-badge status-measuring">رفع مقاسات</span></td>
-              <td><strong style="color:#f59e0b">5.8%</strong></td>
+              <td><strong>1,507</strong></td><td>1,430</td><td>85</td><td>85</td><td>11</td>
+              <td>N-16 / 249</td><td><span class="status-badge status-measuring">تصنيع وتركيب</span></td>
+              <td><strong style="color:#f59e0b">5.6%</strong></td>
             </tr>
             <tr class="total-row">
               <td></td><td>الإجمالي</td><td>—</td>
-              <td><strong>10,153</strong></td><td>6,583</td><td>2,166</td><td>1,893</td><td>~1,047</td>
+              <td><strong>10,153</strong></td><td>6,583</td><td>2,578</td><td>2,474</td><td>~1,554</td>
               <td>—</td><td></td>
-              <td><strong>21.3%</strong></td>
+              <td><strong>25.4%</strong></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- جدول تحليلي حسب الشركة -->
     <div class="project-card">
       <h2>🏢 الملخص حسب الشركة المنفذة</h2>
       <div class="table-wrap">
@@ -1520,13 +1430,13 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
           <tbody>
             <tr>
               <td><strong>أزال للمقاولات</strong></td>
-              <td>2</td><td>2,825</td><td>911</td><td>911</td><td>~768</td>
-              <td><strong style="color:#10b981">32.2%</strong></td>
+              <td>2</td><td>2,825</td><td>1,325</td><td>1,325</td><td>~1,000</td>
+              <td><strong style="color:#10b981">46.8%</strong></td>
             </tr>
             <tr>
               <td><strong>أنمار للمقاولات</strong></td>
               <td>1</td><td>578</td><td>578</td><td>578</td><td>264</td>
-              <td><strong style="color:#10b981">100%</strong></td>
+              <td><strong style="color:#10b981">45.7%</strong></td>
             </tr>
             <tr>
               <td><strong>تشييد البنى الفوقية</strong></td>
@@ -1535,7 +1445,7 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
             </tr>
             <tr>
               <td><strong>أثيل للمقاولات</strong></td>
-              <td>2</td><td>3,317</td><td>482</td><td>389</td><td>—</td>
+              <td>2</td><td>3,317</td><td>482</td><td>482</td><td>275</td>
               <td><strong style="color:#f59e0b">14.5%</strong></td>
             </tr>
             <tr>
@@ -1545,21 +1455,20 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
             </tr>
             <tr>
               <td><strong>محيط الروابي للمقاولات</strong></td>
-              <td>1</td><td>1,507</td><td>87</td><td>11</td><td>11</td>
-              <td><strong style="color:#f59e0b">5.8%</strong></td>
+              <td>1</td><td>1,507</td><td>85</td><td>85</td><td>11</td>
+              <td><strong style="color:#f59e0b">5.6%</strong></td>
             </tr>
             <tr class="total-row">
-              <td>الإجمالي</td><td>8</td><td>10,153</td><td>2,166</td><td>1,893</td><td>~1,047</td>
-              <td><strong>21.3%</strong></td>
+              <td>الإجمالي</td><td>8</td><td>10,153</td><td>2,578</td><td>2,474</td><td>~1,554</td>
+              <td><strong>25.4%</strong></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- جدول تحليلي حسب الحالة -->
     <div class="project-card">
-      <h2>🎯 الملخص حسب حالة المشروع</h2>
+      <h2> الملخص حسب حالة المشروع</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -1576,19 +1485,15 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
               <td>1</td><td>1,229</td><td>12.1%</td>
             </tr>
             <tr>
-              <td><span class="status-badge status-final">🔧 مراحل نهائية</span></td>
-              <td>1</td><td>1,325</td><td>13.0%</td>
-            </tr>
-            <tr>
-              <td><span class="status-badge status-waiting">⚠️ انتظار دفعة</span></td>
-              <td>1</td><td>578</td><td>5.7%</td>
+              <td><span class="status-badge status-final">🔧 مكتمل</span></td>
+              <td>2</td><td>1,903</td><td>18.7%</td>
             </tr>
             <tr>
               <td><span class="status-badge status-stopped">⏸ متوقف</span></td>
               <td>1</td><td>1,026</td><td>10.1%</td>
             </tr>
             <tr>
-              <td><span class="status-badge status-measuring"> رفع مقاسات</span></td>
+              <td><span class="status-badge status-measuring">📐 رفع مقاسات/تصنيع</span></td>
               <td>2</td><td>2,407</td><td>23.7%</td>
             </tr>
             <tr>
@@ -1610,9 +1515,7 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
     </div>
   </div>
 
-  <!-- Analysis Page -->
   <div id="analysis" class="page">
-    <!-- KPIs -->
     <div class="stats-grid">
       <div class="stat-card">
         <h3>إجمالي المشاريع</h3>
@@ -1626,17 +1529,16 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
       <div class="stat-card">
         <h3>نسبة التصنيع</h3>
-        <div class="value">21.3%</div>
-        <div class="label">2,166 من 10,153</div>
+        <div class="value">25.4%</div>
+        <div class="label">2,578 من 10,153</div>
       </div>
       <div class="stat-card">
         <h3>نسبة التوريد</h3>
-        <div class="value">18.6%</div>
-        <div class="label">1,893 من 10,153</div>
+        <div class="value">24.4%</div>
+        <div class="label">2,474 من 10,153</div>
       </div>
     </div>
 
-    <!-- التحليل البياني -->
     <div class="analysis-grid">
       <div class="analysis-card">
         <h3>🎯 توزيع حالات المشاريع</h3>
@@ -1650,17 +1552,12 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
           <div class="donut-legend">
             <div class="legend-item">
               <div class="legend-color" style="background:#06b6d4"></div>
-              <div class="legend-text">مراحل نهائية</div>
-              <div class="legend-value">1</div>
+              <div class="legend-text">مكتمل</div>
+              <div class="legend-value">2</div>
             </div>
             <div class="legend-item">
               <div class="legend-color" style="background:#10b981"></div>
               <div class="legend-text">جارٍ</div>
-              <div class="legend-value">1</div>
-            </div>
-            <div class="legend-item">
-              <div class="legend-color" style="background:#f59e0b"></div>
-              <div class="legend-text">انتظار دفعة</div>
               <div class="legend-value">1</div>
             </div>
             <div class="legend-item">
@@ -1670,7 +1567,7 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
             </div>
             <div class="legend-item">
               <div class="legend-color" style="background:#8b5cf6"></div>
-              <div class="legend-text">رفع مقاسات</div>
+              <div class="legend-text">رفع مقاسات/تصنيع</div>
               <div class="legend-value">2</div>
             </div>
             <div class="legend-item">
@@ -1683,7 +1580,7 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
 
       <div class="analysis-card">
-        <h3>📊 حجم المشاريع (عدد الأبواب)</h3>
+        <h3> حجم المشاريع (عدد الأبواب)</h3>
         <div class="bar-chart">
           <div class="bar-row">
             <div class="bar-label">نزل خيالا</div>
@@ -1701,7 +1598,7 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
             <div class="bar-value">1,507</div>
           </div>
           <div class="bar-row">
-            <div class="bar-label">سدايم أزال م1</div>
+            <div class="bar-label">سدايم أزال</div>
             <div class="bar-track"><div class="bar-fill" style="width:63%;background:linear-gradient(90deg,#10b981,#06d6d6)">1,325</div></div>
             <div class="bar-value">1,325</div>
           </div>
@@ -1721,7 +1618,7 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
             <div class="bar-value">900</div>
           </div>
           <div class="bar-row">
-            <div class="bar-label">سدايم أنمار م1</div>
+            <div class="bar-label">سدايم أنمار</div>
             <div class="bar-track"><div class="bar-fill" style="width:28%;background:linear-gradient(90deg,#f59e0b,#06d6d6)">578</div></div>
             <div class="bar-value">578</div>
           </div>
@@ -1729,19 +1626,18 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
 
-    <!-- تحليل نسبة الإنجاز -->
     <div class="project-card">
       <h2>📈 تحليل نسبة الإنجاز لكل مشروع</h2>
       <div class="bar-chart">
         <div class="bar-row">
-          <div class="bar-label">سدايم أنمار م1</div>
-          <div class="bar-track"><div class="bar-fill green" style="width:100%">100%</div></div>
-          <div class="bar-value" style="color:#10b981">100%</div>
+          <div class="bar-label">سدايم أزال</div>
+          <div class="bar-track"><div class="bar-fill green" style="width:75.5%">75.5%</div></div>
+          <div class="bar-value" style="color:#10b981">75.5%</div>
         </div>
         <div class="bar-row">
-          <div class="bar-label">سدايم أزال م1</div>
-          <div class="bar-track"><div class="bar-fill green" style="width:68.8%">68.8%</div></div>
-          <div class="bar-value" style="color:#10b981">68.8%</div>
+          <div class="bar-label">سدايم أنمار</div>
+          <div class="bar-track"><div class="bar-fill green" style="width:45.7%">45.7%</div></div>
+          <div class="bar-value" style="color:#10b981">45.7%</div>
         </div>
         <div class="bar-row">
           <div class="bar-label">ملفي الأصالة</div>
@@ -1750,8 +1646,8 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
         </div>
         <div class="bar-row">
           <div class="bar-label">محيط الروابي</div>
-          <div class="bar-track"><div class="bar-fill orange" style="width:5.8%">5.8%</div></div>
-          <div class="bar-value" style="color:#f59e0b">5.8%</div>
+          <div class="bar-track"><div class="bar-fill orange" style="width:5.6%">5.6%</div></div>
+          <div class="bar-value" style="color:#f59e0b">5.6%</div>
         </div>
         <div class="bar-row">
           <div class="bar-label">الهجرة سيتي</div>
@@ -1776,7 +1672,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
 
-    <!-- تحليل حسب المقاس -->
     <div class="project-card">
       <h2>📏 تحليل الدرف المطلوبة حسب المقاس</h2>
       <div class="table-wrap">
@@ -1837,7 +1732,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
 
-    <!-- تحليل الألوان -->
     <div class="project-card">
       <h2>🎨 تحليل الألوان المطلوبة</h2>
       <div class="table-wrap">
@@ -1892,10 +1786,9 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
 
-    <!-- تحليل الحلوق والبراويز -->
     <div class="analysis-grid">
       <div class="analysis-card">
-        <h3>🔩 توزيع أنواع الحلوق</h3>
+        <h3> توزيع أنواع الحلوق</h3>
         <div class="bar-chart">
           <div class="bar-row">
             <div class="bar-label">كيرف عادية</div>
@@ -1932,7 +1825,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
 
-    <!-- تحليل الشركات -->
     <div class="project-card">
       <h2>🏢 تحليل أداء الشركات المنفذة</h2>
       <div class="table-wrap">
@@ -1949,16 +1841,16 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
           </thead>
           <tbody>
             <tr>
+              <td><strong>أزال للمقاولات</strong></td>
+              <td>2</td><td>2,825</td><td>1,325</td>
+              <td><strong style="color:#10b981">46.8%</strong></td>
+              <td><span class="status-badge status-progress">جيد</span></td>
+            </tr>
+            <tr>
               <td><strong>أنمار للمقاولات</strong></td>
               <td>1</td><td>578</td><td>578</td>
               <td><strong style="color:#10b981">100%</strong></td>
               <td><span class="status-badge status-progress">ممتاز</span></td>
-            </tr>
-            <tr>
-              <td><strong>أزال للمقاولات</strong></td>
-              <td>2</td><td>2,825</td><td>911</td>
-              <td><strong style="color:#10b981">32.2%</strong></td>
-              <td><span class="status-badge status-progress">جيد</span></td>
             </tr>
             <tr>
               <td><strong>أثيل للمقاولات</strong></td>
@@ -1968,8 +1860,8 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
             </tr>
             <tr>
               <td><strong>محيط الروابي</strong></td>
-              <td>1</td><td>1,507</td><td>87</td>
-              <td><strong style="color:#f59e0b">5.8%</strong></td>
+              <td>1</td><td>1,507</td><td>85</td>
+              <td><strong style="color:#f59e0b">5.6%</strong></td>
               <td><span class="status-badge status-measuring">بداية</span></td>
             </tr>
             <tr>
@@ -1989,36 +1881,35 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
       </div>
     </div>
 
-    <!-- مؤشرات الأداء -->
     <div class="project-card">
       <h2>🎯 مؤشرات الأداء الرئيسية (KPIs)</h2>
       <div class="kpi-grid">
         <div class="kpi-card">
-          <div class="icon"></div>
-          <div class="kpi-value">21.3%</div>
+          <div class="icon">🏭</div>
+          <div class="kpi-value">25.4%</div>
           <div class="kpi-label">نسبة التصنيع الكلية</div>
-          <div class="kpi-change up">↑ 2,166 باب</div>
+          <div class="kpi-change up">↑ 2,578 باب</div>
         </div>
         <div class="kpi-card">
           <div class="icon">🚚</div>
-          <div class="kpi-value">18.6%</div>
+          <div class="kpi-value">24.4%</div>
           <div class="kpi-label">نسبة التوريد الكلية</div>
-          <div class="kpi-change up">↑ 1,893 باب</div>
+          <div class="kpi-change up">↑ 2,474 باب</div>
         </div>
         <div class="kpi-card">
           <div class="icon">🔧</div>
-          <div class="kpi-value">10.3%</div>
+          <div class="kpi-value">15.3%</div>
           <div class="kpi-label">نسبة التركيب الكلية</div>
-          <div class="kpi-change up">↑ ~1,047 باب</div>
+          <div class="kpi-change up">↑ ~1,554 باب</div>
         </div>
         <div class="kpi-card">
-          <div class="icon">️</div>
-          <div class="kpi-value">3</div>
+          <div class="icon">⚠️</div>
+          <div class="kpi-value">4</div>
           <div class="kpi-label">تنبيهات عاجلة</div>
           <div class="kpi-change down">تحتاج متابعة</div>
         </div>
         <div class="kpi-card">
-          <div class="icon"></div>
+          <div class="icon">📐</div>
           <div class="kpi-value">6,583</div>
           <div class="kpi-label">درف مطلوبة</div>
           <div class="kpi-change up">64.8% من الإجمالي</div>
@@ -2039,7 +1930,6 @@ tbody tr:hover{background:rgba(6,214,214,0.05)}
     </div>
   </div>
 
-  <!-- Materials Page -->
   <div id="materials" class="page">
     <div class="project-card">
       <div class="maqas-header">توزيع الدرف المطلوبة حسب المقاس — جميع المشاريع</div>
@@ -2180,7 +2070,6 @@ function showProject(projectId) {
   }, 100);
 }
 
-// Animate progress bars on load
 window.addEventListener('load', () => {
   document.querySelectorAll('.progress-fill, .bar-fill').forEach(el => {
     const w = el.style.width;
